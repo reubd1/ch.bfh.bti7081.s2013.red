@@ -59,7 +59,7 @@
 				Output Task 1:
 				~/doc/task01
 				- Task01.docx
-				- Fragen.docx
+				- fragen.xml
 
 				Vorgehen:
 				-
@@ -84,9 +84,8 @@
 
 				Tasks inkl. Verantwortung
 				[ ] Präsentation 1.3.13
-				[ ] Slides
-				vorbereiten
-				[ ] Vortrag / Präsentation
+				    [ ] Slides vorbereiten
+				    [ ] Vortrag / Präsentation
 			</programlisting>
 		</section>
 	</chapter>

@@ -1,0 +1,44 @@
+<?xml version='1.0'?>
+<book xmlns="http://docbook.org/xml/5.0/xsd/docbook.xsd">
+	<title>Fragen Team Red</title>
+	<bookinfo>
+		<title>Fraen Team Red</title>
+		<author>
+			<personname>Team Red</personname>
+		</author>
+		<volumenum>wip</volumenum>
+	</bookinfo>
+	<chapter>
+		<title>Fragen / Offen</title>
+		<section>
+			<itemizedlist>
+				<listitem>
+					<para>Sind es die richtigen Key Features?</para>
+				</listitem>
+				<listitem>
+					<para>Welche Informationen zum Patienten werden benötigt?</para>
+				</listitem>
+			</itemizedlist>
+		</section>
+	</chapter>
+	<chapter>
+		<title>Fragen / Besprochen</title>
+		<section>
+			<itemizedlist>
+				<listitem>
+					<para>...</para>
+				</listitem>
+			</itemizedlist>
+		</section>
+	</chapter>
+	<chapter>
+		<title>Fragen / Erledigt</title>
+		<section>
+			<itemizedlist>
+				<listitem>
+					<para>...</para>
+				</listitem>
+			</itemizedlist>
+		</section>
+	</chapter>
+</book>
