@@ -74,11 +74,11 @@
     - Restliche
     Tasks individuell
 
-    Tasks inkl.
-    Verantwortung
-    [ ] Präsentation 1.3.13
+    Tasks inkl. Verantwortung
+    [x] Task 1 Grundlagen barta3 / hammd1
+    [x] Präsentation 1.3.13
         [x] Slides vorbereiten hammd1
-        [ ] Vortrag / Präsentation hammd1
+        [x] Vortrag / Präsentation hammd1
    </programlisting>
     </section>
     <section>
@@ -88,9 +88,10 @@
     - Task02_SE_Entscheid.docx
 
     Tasks inkl. Verantwortung
-    [ ] Präsentation 1.3.13
+	[x] Software Engineering Entscheide paras1 /  reubd1 / stola3
+    [x] Präsentation 1.3.13
         [x] Slides vorbereiten paras1
-        [ ] Vortrag / Präsentation paras1
+        [x] Vortrag / Präsentation solta3
    </programlisting>
     </section>
   </chapter>
