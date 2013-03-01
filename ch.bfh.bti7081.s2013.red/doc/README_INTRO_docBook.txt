@@ -8,6 +8,8 @@ Tutorials
 Eclipse Plugin VEX 
 - http://wiki.eclipse.org/Vex
 
+Serna Wysiwg Editor (open source):
+- http://sourceforge.net/projects/sernafree.mirror/
 
 DocBook unter Linux (deb)
 sudo apt-get install xsltproc docbook-xsl docbook-defguide fop docbook-xsl-doc-pdf
