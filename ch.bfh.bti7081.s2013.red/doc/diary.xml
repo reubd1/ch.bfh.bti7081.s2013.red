@@ -1,92 +1,97 @@
-<?xml version='1.0'?>
-<book xmlns="http://docbook.org/xml/5.0/xsd/docbook.xsd">
-	<title>Diary Team Red</title>
-	<bookinfo>
-		<title>Diary Team Red</title>
-		<authorgroup>
-			<author>
-				<personname>barta3</personname>
-			</author>
-			<author>
-				<personname>hammd1</personname>
-			</author>
-			<author>
-				<personname>paras1</personname>
-			</author>
-			<author>
-				<personname>reubd1</personname>
-			</author>
-			<author>
-				<personname>stola3</personname>
-			</author>
-		</authorgroup>
-		<volumenum>0.0.1-wip</volumenum>
-	</bookinfo>
-	<chapter>
-		<title>Einleitung</title>
-		<section>
-			<title>About DocBook</title>
-			<programlisting>
-				DocBook
-				- http://en.wikipedia.org/wiki/DocBook
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- This document was created with Syntext Serna Free. --><!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "docbookV4.2/docbookx.dtd" []>
+<book>
+  <title>Diary Team Red</title>
+  <bookinfo>
+    <title>Diary Team Red</title>
+    <releaseinfo>Version 0.1</releaseinfo>
+    <copyright>
+      <year>2013</year>
+      <holder>Team RED</holder>
+    </copyright>
+    <authorgroup>
+      <author>
+        <othername>barta3</othername>
+      </author>
+      <author>
+        <othername>hammd1</othername>
+      </author>
+      <author>
+        <othername>paras1</othername>
+      </author>
+      <author>
+        <othername>reubd1</othername>
+      </author>
+      <author>
+        <othername>stola3</othername>
+      </author>
+    </authorgroup>
+  </bookinfo>
+  <chapter>
+    <title>Einleitung</title>
+    <section>
+      <title>About DocBook</title>
+      <programlisting>
+    DocBook
+    - http://en.wikipedia.org/wiki/DocBook
 
-				Tutorials
-				-
-				http://www.vogella.com/articles/DocBook/article.html
-				- https://help.ubuntu.com/community/DocBook
+    Tutorials
+    -
+    http://www.vogella.com/articles/DocBook/article.html
+    - https://help.ubuntu.com/community/DocBook
 
-				Eclipse Plugin VEX
-				-
-				http://wiki.eclipse.org/Vex
+    Eclipse Plugin VEX
+    -
+    http://wiki.eclipse.org/Vex
 
 
-				DocBook unter Linux (deb)
-				sudo apt-get install xsltproc docbook-xsl docbook-defguide fop
-				docbook-xsl-doc-pdf
+    DocBook unter Linux (deb)
+    sudo apt-get install xsltproc docbook-xsl docbook-defguide fop
+    docbook-xsl-doc-pdf
 
-				--> see https://help.ubuntu.com/community/DocBook#DocBook_to_PDF
-			</programlisting>
-		</section>
-	</chapter>
-	<chapter>
-		<title>Woche 1</title>
-		<section>
-			<title>Task 1 / 26.2.2013</title>
-			<programlisting>
-				Entscheide
-				- Dokumentsprache: Deutsch
+    --&gt; see https://help.ubuntu.com/community/DocBook#DocBook_to_PDF
+   </programlisting>
+    </section>
+  </chapter>
+  <chapter>
+    <title>Woche 1</title>
+    <section>
+      <title>Task 1 / 26.2.2013</title>
+      <programlisting>
+    Entscheide
+    - Dokumentsprache: Deutsch
 
-				Output Task 1:
-				~/doc/task01
-				- Task01.docx
-				- fragen.xml
+    Output Task 1:
+    ~/doc/task01
+    - Task01.docx
+    - fragen.xml
 
-				Vorgehen:
-				-
-				Tasks "Target users" und "Key Features" wurden im Plenum
-				besprochen, damit alle die gleiche Basis haben.
-				- Restliche
-				Tasks individuell
+    Vorgehen:
+    -
+    Tasks &quot;Target users&quot; und &quot;Key Features&quot; wurden im
+    Plenum
+    besprochen, damit alle die gleiche Basis haben.
+    - Restliche
+    Tasks individuell
 
-				Tasks inkl.
-				Verantwortung
-				[ ] Präsentation 1.3.13
-				[ ] Slides vorbereiten hammd1
-				[ ] Vortrag /
-				Präsentation hammd1
-			</programlisting>
-		</section>
-		<section>
-			<title>Task 2 / 26.2.2013</title>
-			<programlisting>
-				Output Task 2: ~/doc/task02
-				- Task02_SE_Entscheid.docx
+    Tasks inkl.
+    Verantwortung
+    [ ] Präsentation 1.3.13
+        [x] Slides vorbereiten hammd1
+        [ ] Vortrag / Präsentation hammd1
+   </programlisting>
+    </section>
+    <section>
+      <title>Task 2 / 26.2.2013</title>
+      <programlisting>
+    Output Task 2: ~/doc/task02
+    - Task02_SE_Entscheid.docx
 
-				Tasks inkl. Verantwortung
-				[ ] Präsentation 1.3.13
-				    [ ] Slides vorbereiten
-				    [ ] Vortrag / Präsentation
-			</programlisting>
-		</section>
-	</chapter>
+    Tasks inkl. Verantwortung
+    [ ] Präsentation 1.3.13
+        [x] Slides vorbereiten paras1
+        [ ] Vortrag / Präsentation paras1
+   </programlisting>
+    </section>
+  </chapter>
 </book>
