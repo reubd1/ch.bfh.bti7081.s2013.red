@@ -54,9 +54,9 @@
     </section>
   </chapter>
   <chapter>
-    <title>Woche 1</title>
+    <title>Woche 2</title>
     <section>
-      <title>Task 1 / 26.2.2013</title>
+      <title>CS1 Task 1 / 26.2.2013</title>
       <programlisting>
     Entscheide
     - Dokumentsprache: Deutsch
@@ -82,7 +82,7 @@
    </programlisting>
     </section>
     <section>
-      <title>Task 2 / 26.2.2013</title>
+      <title>CS1 Task 2 / 26.2.2013</title>
       <programlisting>
     Output Task 2: ~/doc/task02
     - Task02_SE_Entscheid.docx
@@ -94,5 +94,20 @@
         [x] Vortrag / Präsentation solta3
    </programlisting>
     </section>
+  </chapter>
+  
+    <chapter>
+    <title>Woche 3</title>
+    <section>
+      <title>CS2 Task 1 / 5.3.2013</title>
+      <programlisting>
+
+    Output Task 1:
+    ~/doc/cs2_task1
+    - cs2_task1.docx
+
+   </programlisting>
+    </section>
+
   </chapter>
 </book>
