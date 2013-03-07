@@ -101,13 +101,18 @@
     <section>
       <title>CS2 Task 1 / 5.3.2013</title>
       <programlisting>
-
     Output Task 1:
-    ~/doc/cs2_task1
-    - cs2_task1.docx
-
+    ~/doc/cs2_tasks
+    - CS2_T1_task1.docx
    </programlisting>
     </section>
+    <section>
+      <title>CS2 Task 2 / 7.3.2013</title>
+      <programlisting>
+    Output Task 2:
+    ~/doc/cs2_tasks
+    - CS2_T2_Anwendungsfallbeschreibung.docx
+   </programlisting>
 
   </chapter>
 </book>
