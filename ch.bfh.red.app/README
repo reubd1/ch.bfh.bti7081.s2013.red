@@ -26,4 +26,5 @@ Importing to Eclipse
 You should be able to import the demo project in Eclipse as a Maven project.
 You will need the m2e plugin for Eclipse. (get it from Marketplace "m2e Maven Integration for Eclipse"
 
-File --> Import --> Maven --> From Existing Maven Project
+Window --> Open Perspective --> Gti Repo Exploring
+--> Navigate to project --> right click "import projects"
