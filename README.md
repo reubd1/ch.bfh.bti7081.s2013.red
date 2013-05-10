@@ -21,9 +21,9 @@ Setup vom Projekt:
 
 -----------------------
 So kann das Demo Projekt gestartet werden:
-1. git pull 
-2. Kommandozeile starten
-3. cd jpacontainer-addressbook-demo
-4. mvn clean package
-5. mvn jetty:run
-6. Browser http://localhost:8080
+- git pull 
+- Kommandozeile starten
+  - cd jpacontainer-addressbook-demo
+  - mvn clean package
+  - mvn jetty:run
+- Browser http://localhost:8080
