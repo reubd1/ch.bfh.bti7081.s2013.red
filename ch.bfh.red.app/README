@@ -1,0 +1,29 @@
+===================
+RED myAssitence APP
+===================
+
+----------------------------------------------------------
+Based on http://vaadin.com/download/jpacontainer-tutorial/
+----------------------------------------------------------
+
+---------------------
+Compiling and Running
+---------------------
+
+You should be able to compile the demo as a deployable WAR package with
+the "package" phase.
+
+You can also run it in the Jetty web server in port 8080 with the jetty:run
+goal as follows:
+
+$ mvn clean package
+$ mvn jetty:run 
+
+--------------------
+Importing to Eclipse
+--------------------
+
+You should be able to import the demo project in Eclipse as a Maven project.
+You will need the m2e plugin for Eclipse. (get it from Marketplace "m2e Maven Integration for Eclipse"
+
+File --> Import --> Maven --> From Existing Maven Project
