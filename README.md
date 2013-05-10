@@ -34,3 +34,12 @@ Demo braucht JPAContainer und Hibernate, welche in persistence.xml definiert wer
 - Falls Wert auf "drop-and-create-tables" wird bei jedem START die DB neu erstellt. 
 - Wenn man dies nicht möchte einfach folgende Zeile auskommentieren:
   - https://github.com/reubd1/ch.bfh.bti7081.s2013.red/blob/master/jpacontainer-addressbook-demo/src/main/resources/META-INF/persistence.xml#L25
+
+
+Importing to Eclipse
+--------------------------
+
+You should be able to import the demo project in Eclipse as a Maven project.
+You will need the m2e plugin for Eclipse. (get it from Marketplace "m2e Maven Integration for Eclipse"
+
+File --> Import --> Maven --> From Existing Maven Project
