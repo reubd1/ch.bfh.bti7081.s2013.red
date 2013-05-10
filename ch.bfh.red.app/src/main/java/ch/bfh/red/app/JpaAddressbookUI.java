@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.vaadin.demo.jpaaddressbook;
+package ch.bfh.red.app;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 
 public class JpaAddressbookUI extends UI {
 
-    public static final String PERSISTENCE_UNIT = "addressbook";
+    public static final String PERSISTENCE_UNIT = "redapp";
 
     static {
         DemoDataGenerator.create();

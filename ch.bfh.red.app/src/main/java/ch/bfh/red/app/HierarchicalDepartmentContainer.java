@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.vaadin.demo.jpaaddressbook;
+package ch.bfh.red.app;
+
+import ch.bfh.red.app.domain.Department;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.addon.jpacontainer.provider.CachingLocalEntityProvider;
-import com.vaadin.demo.jpaaddressbook.domain.Department;
 
 public class HierarchicalDepartmentContainer extends JPAContainer<Department> {
 

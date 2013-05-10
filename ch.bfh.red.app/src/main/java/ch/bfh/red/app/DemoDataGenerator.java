@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.vaadin.demo.jpaaddressbook;
+package ch.bfh.red.app;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -22,25 +22,20 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
-import com.vaadin.demo.jpaaddressbook.domain.Department;
-import com.vaadin.demo.jpaaddressbook.domain.Person;
+import ch.bfh.red.app.domain.Department;
+import ch.bfh.red.app.domain.Person;
 
 public class DemoDataGenerator {
 
-	final static String[] groupsNames = { "Corporate Development",
-			"Human Resources", "Legal", "Environment", "Quality Assurance",
-			"Research and Development", "Production", "Sales", "Marketing" };
-	final static String[] officeNames = { "London",
-		"New York", "Tokyo", "Turku"};
-	final static String[] fnames = { "Erich", "Pierre", "Joshua", "Mike",
-			"Olivia", "Nina", "Alex", "Rita", "Dan", "Umberto", "Henrik",
-			"Rene", "Lisa", "Marge" };
-	final static String[] lnames = { "Badertscher", "Fierz", "Simpson", "Brown",
-			"Clavel", "Simons", "Verne", "Scott", "Allison", "Gates",
-			"Rowling", "Barks", "Ross", "Schneider", "Tate" };
-	final static String cities[] = { "Amsterdam", "Berlin", "Helsinki",
-			"Hong Kong", "London", "Luxemburg", "New York", "Oslo", "Paris",
-			"Rome", "Stockholm", "Tokyo", "Turku" };
+	final static String[] groupsNames = { "Math", "Physics", "UML4ever", "IT",
+			"Quality Assurance", "Research and Development", "Production" };
+	final static String[] officeNames = { "London", "New York", "Tokyo",
+			"Turku" };
+	final static String[] fnames = { "Erich", "Pierre", "Olivier", "Mario",
+			"Jan", "Guido" };
+	final static String[] lnames = { "Badertscher", "Fierz", "Büchel", "Super",
+			"Locher", "Bucher" };
+	final static String cities[] = { "Bern", "Burgdorf", "Biel", "Neverland" };
 	final static String streets[] = { "4215 Blandit Av.", "452-8121 Sem Ave",
 			"279-4475 Tellus Road", "4062 Libero. Av.", "7081 Pede. Ave",
 			"6800 Aliquet St.", "P.O. Box 298, 9401 Mauris St.",
@@ -63,8 +58,7 @@ public class DemoDataGenerator {
 
 	public static void create() {
 
-		EntityManager em = Persistence
-				.createEntityManagerFactory("addressbook")
+		EntityManager em = Persistence.createEntityManagerFactory("redapp")
 				.createEntityManager();
 
 		em.getTransaction().begin();
@@ -76,15 +70,15 @@ public class DemoDataGenerator {
 				Department group = new Department();
 				group.setName(g);
 				Set<Person> gPersons = new HashSet<Person>();
-				
+
 				int amount = r.nextInt(15) + 1;
 				for (int i = 0; i < amount; i++) {
 					Person p = new Person();
 					p.setFirstName(fnames[r.nextInt(fnames.length)]);
 					p.setLastName(lnames[r.nextInt(lnames.length)]);
 					p.setCity(cities[r.nextInt(cities.length)]);
-					p.setPhoneNumber("+358 02 555 " + r.nextInt(10) + r.nextInt(10)
-							+ r.nextInt(10) + r.nextInt(10));
+					p.setPhoneNumber("+358 02 555 " + r.nextInt(10)
+							+ r.nextInt(10) + r.nextInt(10) + r.nextInt(10));
 					int n = r.nextInt(100000);
 					if (n < 10000) {
 						n += 10000;

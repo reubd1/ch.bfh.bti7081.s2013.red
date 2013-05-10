@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.vaadin.demo.jpaaddressbook;
+package ch.bfh.red.app;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+import ch.bfh.red.app.domain.Person;
+
 import com.vaadin.data.Item;
 import com.vaadin.data.validator.BeanValidator;
-import com.vaadin.demo.jpaaddressbook.domain.Person;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;

@@ -13,7 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.vaadin.demo.jpaaddressbook;
+package ch.bfh.red.app;
+
+import ch.bfh.red.app.PersonEditor.EditorSavedEvent;
+import ch.bfh.red.app.PersonEditor.EditorSavedListener;
+import ch.bfh.red.app.domain.Department;
+import ch.bfh.red.app.domain.Person;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
@@ -23,10 +28,6 @@ import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.filter.Compare.Equal;
 import com.vaadin.data.util.filter.Like;
 import com.vaadin.data.util.filter.Or;
-import com.vaadin.demo.jpaaddressbook.PersonEditor.EditorSavedEvent;
-import com.vaadin.demo.jpaaddressbook.PersonEditor.EditorSavedListener;
-import com.vaadin.demo.jpaaddressbook.domain.Department;
-import com.vaadin.demo.jpaaddressbook.domain.Person;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.event.ItemClickEvent;
