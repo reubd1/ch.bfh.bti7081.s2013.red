@@ -15,16 +15,13 @@
 			<property name="eclipselink.jdbc.user" value="sa" />
 			<property name="eclipselink.jdbc.password" value="sa" />
 			<property name="eclipselink.logging.level" value="FINE" />
-			
-			
-			<!-- http://wiki.eclipse.org/EclipseLink/Examples/JPA/DDL
-			1: drop-and-create-tables
-			2: create-tables
-			3: "none" => element nicht definieren...
-			 -->
+
+
+			<!-- http://wiki.eclipse.org/EclipseLink/Examples/JPA/DDL 1: drop-and-create-tables 
+				2: create-tables 3: "none" => element nicht definieren... -->
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
-			
-			
+
+
 			<property name="eclipselink.ddl-generation.output-mode"
 				value="database" />
 		</properties>
