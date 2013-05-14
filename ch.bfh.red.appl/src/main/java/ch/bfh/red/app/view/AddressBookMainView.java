@@ -16,6 +16,7 @@
 package ch.bfh.red.app.view;
 
 import ch.bfh.red.app.HierarchicalDepartmentContainer;
+import ch.bfh.red.app.controller.DiaryEditor;
 import ch.bfh.red.app.controller.PersonEditor;
 import ch.bfh.red.app.controller.PersonEditor.EditorSavedEvent;
 import ch.bfh.red.app.controller.PersonEditor.EditorSavedListener;
@@ -132,6 +133,7 @@ public class AddressBookMainView extends HorizontalSplitPanel implements
                         persons.addEntity(newPersonItem.getBean());
                     }
                 });
+                
                 UI.getCurrent().addWindow(personEditor);
             }
         });
@@ -142,14 +144,22 @@ public class AddressBookMainView extends HorizontalSplitPanel implements
             @Override
             public void buttonClick(ClickEvent event) {
                 final BeanItem<Diary> newDiaryItem = new BeanItem<Diary>(new Diary());
+                
                 DiaryEditor diaryEditor = new DiaryEditor(newDiaryItem);
-                diaryEditor.addListener(new EditorSavedListener() {
-                    @Override
-                    public void editorSaved(EditorSavedEvent event) {
-                        diaries.addEntity(newDiaryItem.getBean());
-                    }
+                diaryEditor.addListener(new ch.bfh.red.app.controller.DiaryEditor.EditorSavedListener() {
+
+					@Override
+					public void editorSaved(
+							ch.bfh.red.app.controller.DiaryEditor.EditorSavedEvent event) {
+						diaries.addEntity(newDiaryItem.getBean());
+						
+						
+					}
                 });
-                UI.getCurrent().addWindow(diaryEditor);
+                
+//                UI.getCurrent().addWindow(diaryEditor);
+//                addComponent(diaryEditor);
+                setFirstComponent(diaryEditor);
             }
         });
 
@@ -223,9 +233,10 @@ public class AddressBookMainView extends HorizontalSplitPanel implements
             }
 
         });
-        setFirstComponent(groupTree);
+//        setFirstComponent(groupTree);
     }
 
+    
     private void updateFilters() {
         persons.setApplyFiltersImmediately(false);
         persons.removeAllContainerFilters();
