@@ -52,6 +52,10 @@ public class RedAppUI extends UI {
 			@Override
 			public void editorSaved(EditorSavedEvent event) {
 				System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+				
+				
+				System.out.println("------------" + newDiaryItem.getBean().getEntry());
+				
 				diaries.addEntity(newDiaryItem.getBean());
 
 			}

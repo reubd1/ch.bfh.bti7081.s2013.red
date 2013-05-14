@@ -14,8 +14,8 @@ public class Diary {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
-    @Size(min = 2, max = 24)
+//    @NotNull
+//    @Size(min = 2, max = 24)
     private String topic;
     private String entry;
     
