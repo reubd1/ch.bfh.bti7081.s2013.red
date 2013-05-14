@@ -15,8 +15,7 @@ import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.Upload;
 
-//public class DiaryEditor extends Window implements Button.ClickListener {
-	public class DiaryEditor extends CustomComponent implements Button.ClickListener {
+public class DiaryEditor extends CustomComponent {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
