@@ -22,8 +22,8 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
-import ch.bfh.red.app.modelAssignment.Department;
-import ch.bfh.red.app.modelAssignment.Person;
+import ch.bfh.red.app.model.assignment.Department;
+import ch.bfh.red.app.model.assignment.Person;
 
 public class DemoDataGenerator {
 

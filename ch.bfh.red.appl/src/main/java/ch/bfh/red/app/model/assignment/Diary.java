@@ -1,4 +1,4 @@
-package ch.bfh.red.app.modelAssignment;
+package ch.bfh.red.app.model.assignment;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
