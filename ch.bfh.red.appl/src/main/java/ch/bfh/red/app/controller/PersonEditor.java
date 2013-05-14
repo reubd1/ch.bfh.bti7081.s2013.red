@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import ch.bfh.red.app.DepartmentSelector;
-import ch.bfh.red.app.modelAssignment.Person;
+import ch.bfh.red.app.model.assignment.Person;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.validator.BeanValidator;

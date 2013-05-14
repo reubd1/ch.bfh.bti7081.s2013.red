@@ -1,4 +1,4 @@
-package ch.bfh.red.app.modelProfile;
+package ch.bfh.red.app.model.profile;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

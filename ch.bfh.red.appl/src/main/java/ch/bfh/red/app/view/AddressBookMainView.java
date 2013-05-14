@@ -19,8 +19,8 @@ import ch.bfh.red.app.HierarchicalDepartmentContainer;
 import ch.bfh.red.app.controller.PersonEditor;
 import ch.bfh.red.app.controller.PersonEditor.EditorSavedEvent;
 import ch.bfh.red.app.controller.PersonEditor.EditorSavedListener;
-import ch.bfh.red.app.modelAssignment.Department;
-import ch.bfh.red.app.modelAssignment.Person;
+import ch.bfh.red.app.model.assignment.Department;
+import ch.bfh.red.app.model.assignment.Person;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
@@ -49,7 +49,12 @@ import com.vaadin.ui.VerticalLayout;
 public class AddressBookMainView extends HorizontalSplitPanel implements
         ComponentContainer {
 
-    private Tree groupTree;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1276328592221877100L;
+
+	private Tree groupTree;
 
     private Table personTable;
 
