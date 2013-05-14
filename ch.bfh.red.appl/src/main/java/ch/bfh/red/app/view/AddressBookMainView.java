@@ -16,6 +16,7 @@
 package ch.bfh.red.app.view;
 
 import ch.bfh.red.app.HierarchicalDepartmentContainer;
+import ch.bfh.red.app.controller.PersonEditor;
 import ch.bfh.red.app.controller.PersonEditor.EditorSavedEvent;
 import ch.bfh.red.app.controller.PersonEditor.EditorSavedListener;
 import ch.bfh.red.app.modelAssignment.Department;
