@@ -44,3 +44,9 @@ You will need the m2e plugin for Eclipse. (get it from Marketplace "m2e Maven In
 
 Window --> Open Perspective --> Gti Repo Exploring
 --> Navigate to project --> right click "import projects"
+
+
+
+git command line
+--------------------
+git branch --set-upstream diary01 origin/diary01
