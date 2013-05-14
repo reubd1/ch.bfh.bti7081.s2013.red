@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.bfh.red.app;
+package ch.bfh.red.app.view;
+
+import ch.bfh.red.app.DemoDataGenerator;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;

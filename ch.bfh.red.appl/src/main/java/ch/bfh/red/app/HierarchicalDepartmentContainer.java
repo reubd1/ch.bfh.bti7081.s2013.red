@@ -15,7 +15,8 @@
  */
 package ch.bfh.red.app;
 
-import ch.bfh.red.app.domain.Department;
+import ch.bfh.red.app.modelAssignment.Department;
+import ch.bfh.red.app.view.JpaAddressbookUI;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;

@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.bfh.red.app;
+package ch.bfh.red.app.view;
 
-import ch.bfh.red.app.PersonEditor.EditorSavedEvent;
-import ch.bfh.red.app.PersonEditor.EditorSavedListener;
-import ch.bfh.red.app.domain.Department;
-import ch.bfh.red.app.domain.Person;
+import ch.bfh.red.app.HierarchicalDepartmentContainer;
+import ch.bfh.red.app.controller.PersonEditor.EditorSavedEvent;
+import ch.bfh.red.app.controller.PersonEditor.EditorSavedListener;
+import ch.bfh.red.app.modelAssignment.Department;
+import ch.bfh.red.app.modelAssignment.Person;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
