@@ -20,6 +20,7 @@ import ch.bfh.red.app.controller.PersonEditor;
 import ch.bfh.red.app.controller.PersonEditor.EditorSavedEvent;
 import ch.bfh.red.app.controller.PersonEditor.EditorSavedListener;
 import ch.bfh.red.app.model.assignment.Department;
+import ch.bfh.red.app.model.assignment.Diary;
 import ch.bfh.red.app.model.assignment.Person;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
@@ -64,8 +65,11 @@ public class AddressBookMainView extends HorizontalSplitPanel implements
     private Button deleteButton;
     private Button editButton;
 
+    private Button newDiaryButton;
+    
     private JPAContainer<Department> departments;
     private JPAContainer<Person> persons;
+    private JPAContainer<Diary> diaries;
 
     private Department departmentFilter;
     private String textFilter;
@@ -116,7 +120,7 @@ public class AddressBookMainView extends HorizontalSplitPanel implements
         HorizontalLayout toolbar = new HorizontalLayout();
         newButton = new Button("Add");
         newButton.addClickListener(new Button.ClickListener() {
-
+        	
             @Override
             public void buttonClick(ClickEvent event) {
                 final BeanItem<Person> newPersonItem = new BeanItem<Person>(
@@ -129,6 +133,23 @@ public class AddressBookMainView extends HorizontalSplitPanel implements
                     }
                 });
                 UI.getCurrent().addWindow(personEditor);
+            }
+        });
+        
+        newDiaryButton = new Button("AddDiary");
+        newDiaryButton.addClickListener(new Button.ClickListener() {
+        	
+            @Override
+            public void buttonClick(ClickEvent event) {
+                final BeanItem<Diary> newDiaryItem = new BeanItem<Diary>(new Diary());
+                DiaryEditor diaryEditor = new DiaryEditor(newDiaryItem);
+                diaryEditor.addListener(new EditorSavedListener() {
+                    @Override
+                    public void editorSaved(EditorSavedEvent event) {
+                        diaries.addEntity(newDiaryItem.getBean());
+                    }
+                });
+                UI.getCurrent().addWindow(diaryEditor);
             }
         });
 
@@ -166,6 +187,7 @@ public class AddressBookMainView extends HorizontalSplitPanel implements
         });
 
         toolbar.addComponent(newButton);
+        toolbar.addComponent(newDiaryButton);
         toolbar.addComponent(deleteButton);
         toolbar.addComponent(editButton);
         toolbar.addComponent(searchField);
