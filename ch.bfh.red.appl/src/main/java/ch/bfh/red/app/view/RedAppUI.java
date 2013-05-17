@@ -4,9 +4,11 @@
 package ch.bfh.red.app.view;
 
 /**
- * @author team red
+ * @author team #F00
  *
  */
+
+import java.util.Calendar;
 
 import ch.bfh.red.app.controller.DiaryEditor;
 import ch.bfh.red.app.controller.DiaryEditor.EditorSavedEvent;
@@ -49,12 +51,17 @@ public class RedAppUI extends UI {
 
 
 		diaryEditor.addListener(new EditorSavedListener() {
+			private static final long serialVersionUID = -4810596568407523252L;
+
 			@Override
 			public void editorSaved(EditorSavedEvent event) {
+				// get and set current DateTime 
+				newDiaryItem.getBean().setDateTime( Calendar.getInstance());
+
+				// write some "logs"
 				System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-				
-				
 				System.out.println("------------" + newDiaryItem.getBean().getEntry());
+				System.out.println("------------" + newDiaryItem.getBean().getFeeling());
 				
 				diaries.addEntity(newDiaryItem.getBean());
 

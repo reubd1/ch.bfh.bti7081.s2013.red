@@ -1,40 +1,59 @@
 package ch.bfh.red.app.model.assignment;
 
+import java.util.Calendar;
+
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Diary {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	public enum FeelingEnum {
+		SUPER(5), NAJA(3), SCHLECHT(1);
 
-//    @NotNull
-//    @Size(min = 2, max = 24)
-    private String topic;
-    private String entry;
-    
-    private String dateTime;
+		private Integer numericValue;
 
-    public Long getId() {
-        return id;
-    }
+		private FeelingEnum(Integer nV) {
+			this.numericValue = nV;
+		}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-	public String getTopic() {
-		return topic;
+		public Integer getNumericValue() {
+			return numericValue;
+		}
 	}
 
-	public void setTopic(String topic) {
-		this.topic = topic;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
+	private String entry;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar dateTime;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Enumerated(EnumType.ORDINAL)
+	private FeelingEnum feeling;
+
+	public FeelingEnum getFeeling() {
+		return feeling;
+	}
+
+	public void setFeeling(FeelingEnum feeling) {
+		this.feeling = feeling;
 	}
 
 	public String getEntry() {
@@ -45,13 +64,12 @@ public class Diary {
 		this.entry = entry;
 	}
 
-	public String getDateTime() {
+	public Calendar getDateTime() {
 		return dateTime;
 	}
 
-	public void setDateTime(String dateTime) {
+	public void setDateTime(Calendar dateTime) {
 		this.dateTime = dateTime;
 	}
 
-    
 }
