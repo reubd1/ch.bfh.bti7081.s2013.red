@@ -160,7 +160,7 @@ public class AddressBookMainView extends HorizontalSplitPanel implements
 
 				// UI.getCurrent().addWindow(diaryEditor);
 				// addComponent(diaryEditor);
-				setFirstComponent(diaryEditor);
+//				setFirstComponent(diaryEditor);
 			}
 		});
 
@@ -234,7 +234,7 @@ public class AddressBookMainView extends HorizontalSplitPanel implements
 			}
 
 		});
-		// setFirstComponent(groupTree);
+		 setFirstComponent(groupTree);
 	}
 
 	private void updateFilters() {

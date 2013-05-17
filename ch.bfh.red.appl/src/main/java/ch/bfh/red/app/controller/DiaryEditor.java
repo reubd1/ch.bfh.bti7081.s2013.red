@@ -81,7 +81,7 @@ import com.vaadin.ui.Upload;
                 lbFeel.setImmediate(false);
                 lbFeel.setWidth("-1px");
                 lbFeel.setHeight("-1px");
-                lbFeel.setValue("Wie f√ºhlst du dich heute?");
+                lbFeel.setValue("Wie fühlst du dich heute?");
                 mainLayout.addComponent(lbFeel, "top:60.0px;left:80.0px;");
 
                 // ogFeel

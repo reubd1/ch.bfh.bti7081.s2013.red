@@ -12,8 +12,24 @@
 			<param-value>ch.bfh.red.app.view.RedAppUI</param-value>
 		</init-param>
 	</servlet>
+
+	<servlet>
+		<servlet-name>example</servlet-name>
+		<servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
+		<init-param>
+			<param-name>UI</param-name>
+			<param-value>ch.bfh.red.app.view.JpaAddressbookUI</param-value> 
+			<!--  <param-value>ch.bfh.red.app.view.RedAppBackendUI</param-value>-->
+		</init-param>
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>redapp</servlet-name>
 		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>example</servlet-name>
+		<url-pattern>/example/*</url-pattern>
 	</servlet-mapping>
 </web-app>

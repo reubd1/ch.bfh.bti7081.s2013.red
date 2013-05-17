@@ -29,8 +29,8 @@ public class DemoDataGenerator {
 
 	final static String[] groupsNames = { "Math", "Physics", "UML4ever", "IT",
 			"Quality Assurance", "Research and Development", "Production" };
-	final static String[] officeNames = { "London", "New York", "Tokyo",
-			"Turku" };
+	final static String[] officeNames = { "BoaBoa", "Playablanca", "Bern",
+			"Istanbul" };
 	final static String[] fnames = { "Erich", "Pierre", "Olivier", "Mario",
 			"Jan", "Guido" };
 	final static String[] lnames = { "Badertscher", "Fierz", "Büchel", "Super",
