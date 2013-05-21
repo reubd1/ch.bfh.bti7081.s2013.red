@@ -7,4 +7,5 @@ Branches
 --------
 
 master => stable version
+
 branches => dev versions
