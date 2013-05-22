@@ -7,9 +7,10 @@
 		<servlet-name>redapp</servlet-name>
 		<servlet-class>com.vaadin.addon.touchkit.server.TouchKitServlet</servlet-class>
 		<init-param>
-			<param-name>UI</param-name>
-			<!--  <param-value>ch.bfh.red.app.view.JpaAddressbookUI</param-value> -->
-			<param-value>ch.bfh.red.app.view.RedAppUI</param-value>
+			<description>
+			Vaadin application class to start</description>
+			<param-name>application</param-name>
+			<param-value>ch.bfh.red.app.RedappApplication</param-value>
 		</init-param>
 		<init-param>
 			<description>
@@ -18,32 +19,13 @@
 			<param-value>ch.bfh.red.app.widgetset.RedappWidgetset</param-value>
 		</init-param>
 	</servlet>
-
-	<servlet>
-		<servlet-name>example</servlet-name>
-		<servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
-		<init-param>
-			<param-name>UI</param-name>
-			<param-value>ch.bfh.red.app.view.JpaAddressbookUI</param-value> 
-			<!--  <param-value>ch.bfh.red.app.view.RedAppBackendUI</param-value>-->
-		</init-param>
-	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>redapp</servlet-name>
 		<url-pattern>/*</url-pattern>
-	</servlet-mapping>
-		<servlet-mapping>
-		<servlet-name>redapp</servlet-name>
-		<url-pattern>/VAADIN/*</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>example</servlet-name>
-		<url-pattern>/example/*</url-pattern>
-	</servlet-mapping>
-		<mime-mapping>
+	</servlet-mapping>	
+	<mime-mapping>
 		<extension>manifest</extension>
 		<mime-type>text/cache-manifest</mime-type>
 	</mime-mapping>
+  
 </web-app>

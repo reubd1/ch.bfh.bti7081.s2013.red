@@ -146,17 +146,17 @@ public class AddressBookMainView extends HorizontalSplitPanel implements
 				final BeanItem<Diary> newDiaryItem = new BeanItem<Diary>(
 						new Diary());
 
-				DiaryEditor diaryEditor = new DiaryEditor(newDiaryItem);
-				diaryEditor
-						.addListener(new ch.bfh.red.app.controller.DiaryEditor.EditorSavedListener() {
-
-							@Override
-							public void editorSaved(
-									ch.bfh.red.app.controller.DiaryEditor.EditorSavedEvent event) {
-								diaries.addEntity(newDiaryItem.getBean());
-
-							}
-						});
+//				DiaryEditor diaryEditor = new DiaryEditor(newDiaryItem);
+//				diaryEditor
+//						.addListener(new ch.bfh.red.app.controller.DiaryEditor.EditorSavedListener() {
+//
+//							@Override
+//							public void editorSaved(
+//									ch.bfh.red.app.controller.DiaryEditor.EditorSavedEvent event) {
+//								diaries.addEntity(newDiaryItem.getBean());
+//
+//							}
+//						});
 
 				// UI.getCurrent().addWindow(diaryEditor);
 				// addComponent(diaryEditor);

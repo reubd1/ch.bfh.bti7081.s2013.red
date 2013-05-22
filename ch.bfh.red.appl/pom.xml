@@ -84,6 +84,36 @@
 			<artifactId>jpacontainer-addon-agpl-3.0</artifactId>
 			<version>1.2.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.vaadin.addon</groupId>
+			<artifactId>vaadin-touchkit-agpl</artifactId>
+			<version>3.0.0.beta2</version>
+		</dependency>
+				<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-server</artifactId>
+			<version>${vaadin.version}</version>
+		</dependency>
+		<dependency>
+			<!-- Needed for possible offline mode -->
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-client</artifactId>
+			<version>${vaadin.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<!--  TODO check if this is really needed ?? In add-on project it is needed for linker -->
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-client-compiler</artifactId>
+			<version>${vaadin.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>2.0.3</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
