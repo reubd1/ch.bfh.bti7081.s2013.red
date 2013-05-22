@@ -31,8 +31,7 @@ public class RedAppUI extends UI {
 	@Override
 	protected void init(VaadinRequest request) {
 
-		diaries = JPAContainerFactory.make(Diary.class,
-				JpaAddressbookUI.PERSISTENCE_UNIT);
+		diaries = JPAContainerFactory.make(Diary.class, JpaAddressbookUI.PERSISTENCE_UNIT);
 
 		// Set the window or tab title
 		getPage().setTitle("Welcome RedApp");
@@ -53,7 +52,11 @@ public class RedAppUI extends UI {
 			@Override
 			public void editorSaved(EditorSavedEvent event) {
 				// get and set current DateTime
-				newDiaryItem.getBean().setDateTime(Calendar.getInstance());
+				Calendar tmpCurTime = Calendar.getInstance();
+				if (newDiaryItem.getBean().getCreatedDate() == null) {
+					newDiaryItem.getBean().setCreatedDate(tmpCurTime);
+				}
+				newDiaryItem.getBean().setCreatedDate(tmpCurTime);
 
 				// write some "logs"
 				System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -66,10 +69,10 @@ public class RedAppUI extends UI {
 		});
 
 		layout.addComponent(diaryEditor);
-		
+
 		DiarySummaryView diarySummaryView = new DiarySummaryView(newDiaryItem);
 		diarySummaryView.setWidth(800, Unit.PIXELS);
-		diarySummaryView.setHeight(500, Unit.PIXELS);
+		diarySummaryView.setHeight(600, Unit.PIXELS);
 		layout.addComponent(diarySummaryView);
 
 	}

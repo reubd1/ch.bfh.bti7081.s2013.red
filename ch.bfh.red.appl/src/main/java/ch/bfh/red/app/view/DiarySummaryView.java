@@ -1,18 +1,18 @@
 /**
  * Copyright 2009-2013 Oy Vaadin Ltd
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package ch.bfh.red.app.view;
 
 import ch.bfh.red.app.HierarchicalDepartmentContainer;
@@ -49,8 +49,7 @@ import com.vaadin.ui.Tree;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-public class DiarySummaryView extends HorizontalSplitPanel implements
-		ComponentContainer {
+public class DiarySummaryView extends HorizontalSplitPanel implements ComponentContainer {
 
 	/**
 	 * 
@@ -67,11 +66,10 @@ public class DiarySummaryView extends HorizontalSplitPanel implements
 	private String textFilter;
 
 	private final Item diaryItem;
-	
+
 	public DiarySummaryView(Item diaryItem) {
-		this.diaryItem = diaryItem;	
-		diaries = JPAContainerFactory.make(Diary.class,
-				JpaAddressbookUI.PERSISTENCE_UNIT);
+		this.diaryItem = diaryItem;
+		diaries = JPAContainerFactory.make(Diary.class, JpaAddressbookUI.PERSISTENCE_UNIT);
 		buildMainArea();
 
 		setSplitPosition(0);
@@ -85,7 +83,6 @@ public class DiarySummaryView extends HorizontalSplitPanel implements
 		diaryEntriesTable.setSelectable(true);
 		diaryEntriesTable.setImmediate(true);
 
-
 		diaryEntriesTable.setSizeFull();
 		// personTable.setSelectable(true);
 		diaryEntriesTable.addListener(new ItemClickListener() {
@@ -97,8 +94,9 @@ public class DiarySummaryView extends HorizontalSplitPanel implements
 			}
 		});
 
-		diaryEntriesTable.setVisibleColumns(new Object[] { "id", "entry", "feeling"});
-
+		// diaryEntriesTable.setVisibleColumns(new Object[] { "id", "entry", "feeling",
+		// "createdDate"});
+		diaryEntriesTable.setVisibleColumns(new Object[] { "id", "entry", "feeling" });
 
 		searchField = new TextField();
 		searchField.setInputPrompt("Search by name");
@@ -116,7 +114,6 @@ public class DiarySummaryView extends HorizontalSplitPanel implements
 		verticalLayout.setSizeFull();
 
 	}
-
 
 	private void updateFilters() {
 		diaries.setApplyFiltersImmediately(false);
