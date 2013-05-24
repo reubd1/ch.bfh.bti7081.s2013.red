@@ -5,14 +5,11 @@ import java.util.Calendar;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Diary {
+public class Diary extends Assignment{
 
 	public enum FeelingEnum {
 		SUPER(5), NAJA(3), SCHLECHT(1);
@@ -28,22 +25,11 @@ public class Diary {
 		}
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-
 	private String entry;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dateTime;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	@Enumerated(EnumType.ORDINAL)
 	private FeelingEnum feeling;
