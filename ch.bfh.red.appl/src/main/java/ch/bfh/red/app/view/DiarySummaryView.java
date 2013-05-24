@@ -23,6 +23,7 @@ import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.Popover;
 import com.vaadin.data.Item;
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -47,6 +48,9 @@ public class DiarySummaryView extends NavigationView implements ClickListener {
 	private String textFilter;
 
 	private Item diaryItem;
+	
+	final BeanItem<Diary> newDiaryItem = new BeanItem<Diary>(
+			new Diary());
 	
 	private Button addDiary = new Button(null, this);
 	
@@ -118,7 +122,8 @@ public class DiarySummaryView extends NavigationView implements ClickListener {
             Popover popover = new Popover();
             popover.setSizeFull();
             popover.setModal(false);
-            popover.setContent(new DiaryEditor(diaryItem, null));
+            popover.setClosable(true);
+            popover.setContent(new DiaryEditor(newDiaryItem, null));
             UI.getCurrent().addWindow(popover);
         } 
     }
