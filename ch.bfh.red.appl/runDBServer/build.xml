@@ -9,6 +9,7 @@
    <property name="lib.dir" value="." />
    <property name="db.driver" value="org.hsqldb.jdbcDriver" />
    <property name="db.url" value="jdbc:hsqldb:hsql://localhost:9001" />
+   <property name="db.urlemb" value="jdbc:hsqldb:file:../redappdb/reDB" />
    <property name="db.user" value="sa" />
    <property name="db.pw" value="" />
 
@@ -28,10 +29,20 @@
    </target>
 
    <!-- Start the HSQL DB browser tool -->
-   <target name="startManager" description="Start HSQL DB manager">
+   <target name="startManager_SERVER" description="Start HSQL DB manager">
       <java classname="org.hsqldb.util.DatabaseManagerSwing" fork="yes" classpathref="lib.class.path" failonerror="true">
          <arg value="-url" />
          <arg value="${db.url}" />
+         <arg value="-driver" />
+         <arg value="${db.driver}" />
+      </java>
+   </target>
+   
+   <!-- Start the HSQL DB browser tool -->
+   <target name="startManager_EMBEDDED-be-careful" description="Start HSQL DB manager">
+      <java classname="org.hsqldb.util.DatabaseManagerSwing" fork="yes" classpathref="lib.class.path" failonerror="true">
+         <arg value="-url" />
+         <arg value="${db.urlemb}" />
          <arg value="-driver" />
          <arg value="${db.driver}" />
       </java>
