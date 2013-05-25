@@ -31,7 +31,7 @@ Dokumente:
   - egit
   - m2e (Maven Integration for Eclipse)
   - Vaadin
-  - eclipse-jetty-run
+  - run-jetty-run
 - [See teamPolicy](https://github.com/reubd1/ch.bfh.bti7081.s2013.red/tree/master/ch.bfh.red.parent-doc/teamPolicy)
 
 
