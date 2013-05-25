@@ -7,11 +7,13 @@ GITHUB Branches
 - branches => entwicklung
 
 Dokumente:
-- Project Diary RED (Google Docs): https://docs.google.com/document/d/1rRi7C8XRM7_PWkS1ulC-wMDsGuzwwAkunF85WuAIzIA/edit?usp=sharing
+- Project [Diary RED (Google Docs)](https://docs.google.com/document/d/1rRi7C8XRM7_PWkS1ulC-wMDsGuzwwAkunF85WuAIzIA/edit?usp=sharing)
 - SCRUM (Google Docs):
-  - Product Backlog: https://docs.google.com/spreadsheet/ccc?key=0AnCAnfX0pVZcdDBvdWhCQm5WSmhHejd2RlNrR2VpbWc&usp=sharing
-  - Sprint Backlog:  https://docs.google.com/spreadsheet/ccc?key=0AnCAnfX0pVZcdGdqN2s5eUFNaXpsSlgzREw3MF9Ga0E&usp=sharing
-- CS* Tasks: GitHub  https://github.com/reubd1/ch.bfh.bti7081.s2013.red/tree/master/ch.bfh.red.parent-doc/doc
+  - [Product Backlog](https://docs.google.com/spreadsheet/ccc?key=0AnCAnfX0pVZcdDBvdWhCQm5WSmhHejd2RlNrR2VpbWc&usp=sharing)
+  - [Sprint Backlog]  (https://docs.google.com/spreadsheet/ccc?key=0AnCAnfX0pVZcdGdqN2s5eUFNaXpsSlgzREw3MF9Ga0E&usp=sharing)
+- CS* Tasks: 
+  - [CS1 TASKS] (https://github.com/reubd1/ch.bfh.bti7081.s2013.red/tree/master/ch.bfh.red.parent-doc/doc/cs1_tasks)
+  - [CS2 TASKS] (https://github.com/reubd1/ch.bfh.bti7081.s2013.red/tree/master/ch.bfh.red.parent-doc/doc/cs2_tasks)
 
 ## VAADIN ein Buch mit 7ben Siegeln:
 
