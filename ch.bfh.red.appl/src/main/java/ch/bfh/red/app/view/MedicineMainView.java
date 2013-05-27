@@ -15,8 +15,6 @@
 */
 package ch.bfh.red.app.view;
 
-import ch.bfh.red.app.controller.DiaryEditor;
-import ch.bfh.red.app.model.assignment.Diary;
 import ch.bfh.red.app.model.assignment.Medication;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
@@ -24,13 +22,10 @@ import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.Popover;
 import com.vaadin.data.Item;
-import com.vaadin.data.util.BeanItem;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
@@ -68,13 +63,13 @@ public class MedicineMainView extends NavigationView implements ClickListener {
 		VerticalLayout verticalLayoutBottom = new VerticalLayout();
 
 
-		lbTitle = new Label("Medikamente");
+		lbTitle = new Label("Medicine");
 		lbTitle.setImmediate(true);
 		lbTitle.setSizeFull();
 
-		bConsumeTracking = new Button("Einnahme Einsicht");
+		bConsumeTracking = new Button("Consume Tracking");
 		
-	    bStockMgmt = new Button("Vorrat Verwalten");
+	    bStockMgmt = new Button("Stock Management");
 
 
 		verticalLayoutTop.addComponent(lbTitle);
@@ -88,12 +83,15 @@ public class MedicineMainView extends NavigationView implements ClickListener {
 	}
 	
 	public void buttonClick(ClickEvent event) {
-//		if (bConsumeTracking == event.getButton()) {
-//            Popover popover = new Popover();
-//            popover.setSizeFull();
-//            popover.setModal(false);
-//            popover.setClosable(true);
-//            popover.setContent();
-//            UI.getCurrent().addWindow(popover);
+		if (bConsumeTracking == event.getButton()) {
+            Popover popover = new Popover();
+            popover.setSizeFull();
+            popover.setModal(false);
+            popover.setClosable(true);
+            popover.setContent(new MedicineConsumeTrackingView(medicationItem));
+            UI.getCurrent().addWindow(popover);
+		} else if (bStockMgmt == event.getButton()) {
+			
+		}
 	} 
 }
