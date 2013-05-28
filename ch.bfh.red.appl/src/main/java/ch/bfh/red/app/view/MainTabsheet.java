@@ -2,6 +2,7 @@ package ch.bfh.red.app.view;
 
 import ch.bfh.red.app.model.assignment.Diary;
 
+import com.vaadin.addon.touchkit.ui.NavigationManager;
 import com.vaadin.addon.touchkit.ui.TabBarView;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.server.Resource;
@@ -20,32 +21,34 @@ public class MainTabsheet extends TabBarView {
 
     final BeanItem<Diary> newDiaryItem = new BeanItem<Diary>(new Diary());
 
-    public MainTabsheet() {
+	public static NavigationManager navigationManager;
+	
+//	public Na
 
+    public MainTabsheet() {
+    	
+    	navigationManager = new NavigationManager();
+    	
+    	
+//    	navigationManager.r
         /*
          * Populate main views
          */
-        diaryView = new DiarySummaryView(newDiaryItem);
+        diaryView = new DiarySummaryView();
+//        diaryView.getna
         
         Tab addTab = addTab(diaryView);
         addTab.setIcon( new ThemeResource("linegraphics/bird.png"));
-//        latestObservations = new LatestObservations();
+
         addTab = addTab(diaryView);
         addTab.setIcon((Resource) new ThemeResource("linegraphics/binocular.png"));
-//        addTab.setCaption(tr.getString("Observations"));
-//        mapView = new MapView();
+
         addTab = addTab(diaryView);
         addTab.setIcon((Resource) new ThemeResource("linegraphics/world.png"));
-//        addTab.setCaption(tr.getString("Map"));
-//        SettingsView settings = new SettingsView();
+
         addTab = addTab(diaryView);
         addTab.setIcon((Resource) new ThemeResource("linegraphics/tools.png"));
-//        addTab.setCaption(tr.getString("Settings"));
 
-        /*
-         * Make settings view as the default. This would not be best option for
-         * a real application, but it also serves as our demos welcome page.
-         */
         setSelectedTab(diaryView);
 
     }

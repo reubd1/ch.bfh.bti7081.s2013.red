@@ -7,6 +7,7 @@ package ch.bfh.red.app.view;
 
 import ch.bfh.red.app.controller.notification.NotificationChecker;
 
+import com.vaadin.addon.touchkit.ui.NavigationManager;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
@@ -20,8 +21,6 @@ import com.vaadin.ui.UI;
 @Push
 public class RedAppUI extends UI {
 
-	private MainTabsheet mainTab;
-
 	private static final long serialVersionUID = -3919212212063135503L;
 
 	@Override
@@ -29,8 +28,8 @@ public class RedAppUI extends UI {
 		// Set the window or tab title
 		getPage().setTitle("Welcome RedApp");
 
-		mainTab = new MainTabsheet();
-		setContent(mainTab);
+		NavigationManager navigationManager = new NavigationManager(new HomeScreenView());
+		setContent(navigationManager);
 		
 		NotificationChecker checker = NotificationChecker.getInstance();
 		checker.setMainPage(this);

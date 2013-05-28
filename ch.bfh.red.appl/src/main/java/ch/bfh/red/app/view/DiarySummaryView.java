@@ -20,6 +20,7 @@ import ch.bfh.red.app.model.assignment.Diary;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
+import com.vaadin.addon.touchkit.ui.NavigationButton;
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.Popover;
 import com.vaadin.data.Item;
@@ -31,7 +32,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 
-public class DiarySummaryView extends NavigationView implements ClickListener {
+public class DiarySummaryView extends NavigationView {
 
 
 	/**
@@ -41,35 +42,20 @@ public class DiarySummaryView extends NavigationView implements ClickListener {
 
 	private Table diaryEntriesTable;
 
-//	private TextField searchField;
 
 	private JPAContainer<Diary> diaries;
 
-//	private Department departmentFilter;
-	private String textFilter;
-
-
-	private Item diaryItem;
 	
-	final BeanItem<Diary> newDiaryItem = new BeanItem<Diary>(
-			new Diary());
+	final BeanItem<Diary> newDiaryItem = new BeanItem<Diary>(new Diary());
 	
-	private Button addDiary = new Button(null, this);
 	
-
-
-	
-	public DiarySummaryView(Item diaryItem) {
-		this.diaryItem = diaryItem;	
-		diaries = JPAContainerFactory.make(Diary.class,
-				JpaAddressbookUI.PERSISTENCE_UNIT);
-
+	public DiarySummaryView() {
+		diaries = JPAContainerFactory.make(Diary.class,	JpaAddressbookUI.PERSISTENCE_UNIT);
 	}
 	
 	 @Override
 	    public void attach() {
 	        super.attach();
-	        
 	            buildView();
 	    }
 
@@ -81,51 +67,29 @@ public class DiarySummaryView extends NavigationView implements ClickListener {
 
 		diaryEntriesTable.setSizeFull();
 
-		// diaryEntriesTable.setVisibleColumns(new Object[] { "id", "entry", "feeling",
-		// "createdDate"});
 		diaryEntriesTable.setVisibleColumns(new Object[] { "id", "entry", "feeling" });
 
-//		searchField = new TextField();
-//		searchField.setInputPrompt("Search by name");
-//		searchField.addTextChangeListener(new TextChangeListener() {
-//
-//			@Override
-//			public void textChange(TextChangeEvent event) {
-//				textFilter = event.getText();
-//				updateFilters();
-//			}
-//		});
-//
-//		verticalLayout.addComponent(diaryEntriesTable);
-//		verticalLayout.setExpandRatio(diaryEntriesTable, 1);
-//		verticalLayout.setSizeFull();
-
+		Button addDiary = new Button();
+		
+		addDiary.addClickListener(new ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				getNavigationManager().navigateTo(new DiaryEditor(newDiaryItem));
+				
+			}
+		});
+		
 		setContent(diaryEntriesTable);
 		addDiary.setIcon(new ThemeResource("linegraphics/plus.png"));
-        setRightComponent(addDiary);
+        getNavigationBar().setRightComponent(addDiary);
+        
 	}
-
-//	private void updateFilters() {
-//		diaries.setApplyFiltersImmediately(false);
-//		diaries.removeAllContainerFilters();
-//		if (textFilter != null && !textFilter.equals("")) {
-//			Or or = new Or(new Like("entry", textFilter + "%", false));
-//			diaries.addContainerFilter(or);
-//		}
-//		diaries.applyFilters();
-//	}
-
-
-
+	
 	@Override
-	public void buttonClick(ClickEvent event) {
-		if (addDiary == event.getButton()) {
-            Popover popover = new Popover();
-            popover.setSizeFull();
-            popover.setModal(false);
-            popover.setClosable(true);
-            popover.setContent(new DiaryEditor(newDiaryItem, null));
-            UI.getCurrent().addWindow(popover);
-        } 
-    }
+	protected void onBecomingVisible() {
+	    super.onBecomingVisible();
+
+	    diaries.refresh();
+	}
 }

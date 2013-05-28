@@ -54,37 +54,37 @@ public class DiaryEditor extends NavigationView implements ClickListener {
 
 	private JPAContainer<Diary> diaries;
 
-	private DiaryAddedCallback diaryAddedCallback;
+//	private DiaryAddedCallback diaryAddedCallback;
 
 	/**
 	 * An interface for users of this class, so that they can react on if new
 	 * Diary was added.
 	 */
-	interface DiaryAddedCallback {
+//	interface DiaryAddedCallback {
+//
+//		/**
+//		 * Called when diary has been added.
+//		 * 
+//		 * @param diary
+//		 *            the added diary
+//		 */
+//		void diaryAdded(Diary diary);
+//
+//	}
 
-		/**
-		 * Called when diary has been added.
-		 * 
-		 * @param diary
-		 *            the added diary
-		 */
-		void diaryAdded(Diary diary);
-
-	}
-
-	public DiaryEditor(final Item diaryItem, DiaryAddedCallback diary) {
+	public DiaryEditor(final Item diaryItem) {
 
 		this.diaryItem = diaryItem;
-		this.diaryAddedCallback = diary;
+//		this.diaryAddedCallback = diary;
 
 		cancel = new Button(null, this);
 		cancel.setCaption("Cancel");
 		submit = new Button(null, this);
         submit.setCaption("Save");
 
-		setLeftComponent(cancel);
-		setRightComponent(submit);
-		setPreviousComponent(new DiarySummaryView(diaryItem));
+//		setLeftComponent(cancel);
+//		setRightComponent(submit);
+		setPreviousComponent(new DiarySummaryView());
 		this.diaries = JPAContainerFactory.make(Diary.class,
 				JpaAddressbookUI.PERSISTENCE_UNIT);
 
@@ -115,12 +115,12 @@ public class DiaryEditor extends NavigationView implements ClickListener {
 		// common part: create layout
 		mainLayout = new AbsoluteLayout();
 		mainLayout.setImmediate(false);
-		mainLayout.setWidth("50%");
-		mainLayout.setHeight("70%");
+		mainLayout.setSizeFull();
+//		mainLayout.setHeight("70%")
 
 		// top-level component properties
-		setWidth("100.0%");
-		setHeight("100.0%");
+//		setWidth("100.0%");
+//		setHeight("100.0%");
 
 		// lbFeel
 		lbFeel = new Label();
@@ -180,7 +180,6 @@ public class DiaryEditor extends NavigationView implements ClickListener {
 
 	public void buttonClick(ClickEvent event) {
 
-        final Popover popover = new Popover();
 		if (event.getButton() == submit) {
 			try {
 				binder.commit();
@@ -192,9 +191,10 @@ public class DiaryEditor extends NavigationView implements ClickListener {
 		} else if (event.getButton() == cancel) {
 			binder.discard();
 		}
-		NavigationManager nav = new NavigationManager();
-		nav.navigateTo(new DiarySummaryView(diaryItem));
-		popover.close();
+		getNavigationManager().navigateBack();
+//		NavigationManager nav = new NavigationManager();
+//		nav.navigateTo(new DiarySummaryView());
+//		popover.close();
 
 	}
 
@@ -231,5 +231,4 @@ public class DiaryEditor extends NavigationView implements ClickListener {
 	public interface EditorSavedListener extends Serializable {
 		public void editorSaved(EditorSavedEvent event);
 	}
-
 }
