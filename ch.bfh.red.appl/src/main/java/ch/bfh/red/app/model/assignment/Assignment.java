@@ -1,25 +1,25 @@
-/**
- * 
- */
 package ch.bfh.red.app.model.assignment;
 
 import java.util.Calendar;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  * @author stola
  * 
+ *         Superclass for all Entities<br>
  */
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+// HINT have a look
+// http://wiki.eclipse.org/EclipseLink/UserGuide/JPA/Basic_JPA_Development/Entities/Inheritance#Example:_Using_TABLE_PER_CLASS_with_.40Inheritance_annotation
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Assignment {
 
 	@Id

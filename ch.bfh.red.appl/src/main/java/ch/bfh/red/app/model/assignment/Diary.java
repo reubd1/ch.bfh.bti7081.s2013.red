@@ -2,6 +2,7 @@ package ch.bfh.red.app.model.assignment;
 
 import java.util.Calendar;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,7 +10,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Diary extends Assignment{
+public class Diary extends Assignment {
+
+	private String entry;
 
 	public enum FeelingEnum {
 		SUPER(5), NAJA(3), SCHLECHT(1);
@@ -25,11 +28,8 @@ public class Diary extends Assignment{
 		}
 	}
 
-	private String entry;
-	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dateTime;
-
 
 	@Enumerated(EnumType.ORDINAL)
 	private FeelingEnum feeling;
