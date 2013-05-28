@@ -50,7 +50,7 @@ public class DiarySummaryView extends NavigationView {
 	
 	
 	public DiarySummaryView() {
-		diaries = JPAContainerFactory.make(Diary.class,	JpaAddressbookUI.PERSISTENCE_UNIT);
+		diaries = JPAContainerFactory.make(Diary.class,	RedAppUI.PERSISTENCE_UNIT);
 	}
 	
 	 @Override

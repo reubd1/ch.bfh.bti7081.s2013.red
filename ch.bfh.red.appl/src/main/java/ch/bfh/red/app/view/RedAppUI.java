@@ -20,6 +20,8 @@ import com.vaadin.ui.UI;
 @Theme("redapp")
 @Push
 public class RedAppUI extends UI {
+	
+	public static final String PERSISTENCE_UNIT = "redapp"; // TODO irgendwo im data access Bereich definieren
 
 	private static final long serialVersionUID = -3919212212063135503L;
 

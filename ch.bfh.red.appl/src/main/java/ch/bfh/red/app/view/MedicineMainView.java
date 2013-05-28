@@ -51,7 +51,7 @@ public class MedicineMainView extends NavigationView implements ClickListener {
 	
 	public MedicineMainView(Item medicationItem) {
 		this.medicationItem = medicationItem;	
-		medication = JPAContainerFactory.make(Medication.class, JpaAddressbookUI.PERSISTENCE_UNIT);
+		medication = JPAContainerFactory.make(Medication.class, RedAppUI.PERSISTENCE_UNIT);
 
 
 	}
