@@ -5,6 +5,7 @@
 package ch.bfh.red.app.view;
 
 import ch.bfh.red.app.controller.DiaryEditor;
+import ch.bfh.red.app.controller.notification.NotificationChecker;
 import ch.bfh.red.app.model.assignment.Diary;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
@@ -35,6 +36,9 @@ public class DiarySummaryView extends NavigationView {
 	public void attach() {
 		super.attach();
 		buildView();
+		
+		// Turn on notifications
+		NotificationChecker.getInstance().setActive(true);
 	}
 
 	private void buildView() {

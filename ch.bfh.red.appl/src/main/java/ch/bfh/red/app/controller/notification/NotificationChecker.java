@@ -8,6 +8,7 @@ package ch.bfh.red.app.controller.notification;
 import java.util.Calendar;
 
 import ch.bfh.red.app.model.assignment.Diary;
+import ch.bfh.red.app.view.RedAppUI;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
@@ -29,6 +30,8 @@ public class NotificationChecker {
 
 	private JPAContainer<Diary> diaries;
 
+	private boolean active = false;
+
 	public static NotificationChecker getInstance() {
 
 		if (instance == null) {
@@ -48,24 +51,47 @@ public class NotificationChecker {
 	 * Start the Checker
 	 */
 	public void start() {
+		
+		active = true;
+
+		if (mainPage == null) {
+			throw new IllegalStateException("mainPage is not specified");
+		}
+
 		// TODO: data access
-		diaries = JPAContainerFactory.make(Diary.class, "redapp"); // TODO: konstante
+		diaries = JPAContainerFactory.makeNonCached(Diary.class, RedAppUI.PERSISTENCE_UNIT);
 
 		new CheckerThread().start();
+	}
+	
+	
+	/**
+	 * if false, don't send push messages
+	 */
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	private class CheckerThread extends Thread {
 
 		@Override
 		public void run() {
-			while (true) {
+			while (active) {
 
 				checkDiary();
-
-				try {
-					Thread.sleep(REFRESH_INTERVAL_MS);
-				} catch (InterruptedException e) {
-				}
+				checkMedication();
+				
+				timeOut();
+			
+			}
+			timeOut();
+			run();
+		}
+		
+		private void timeOut() {
+			try {
+				Thread.sleep(REFRESH_INTERVAL_MS);
+			} catch (InterruptedException e) {
 			}
 		}
 
@@ -95,6 +121,11 @@ public class NotificationChecker {
 			}
 
 			diaries.removeAllContainerFilters();
+		}
+
+		private void checkMedication() {
+			//TODO
+
 		}
 
 	}
