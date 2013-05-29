@@ -26,18 +26,20 @@ public class DiarySummaryView extends NavigationView {
 	private JPAContainer<Diary> diaries;
 
 	final BeanItem<Diary> newDiaryItem = new BeanItem<Diary>(new Diary());
-	
+
 	public DiarySummaryView() {
-		diaries = JPAContainerFactory.make(Diary.class,	RedAppUI.PERSISTENCE_UNIT);
+		diaries = JPAContainerFactory.make(Diary.class, RedAppUI.PERSISTENCE_UNIT);
 	}
-	
-	 @Override
-	    public void attach() {
-	        super.attach();
-	            buildView();
-	    }
+
+	@Override
+	public void attach() {
+		super.attach();
+		buildView();
+	}
 
 	private void buildView() {
+
+		this.setCaption("Tagebuch Übersicht");
 
 		diaryEntriesTable = new Table(null, diaries);
 		diaryEntriesTable.setSelectable(true);
@@ -48,26 +50,25 @@ public class DiarySummaryView extends NavigationView {
 		diaryEntriesTable.setVisibleColumns(new Object[] { "id", "entry", "feeling" });
 
 		Button addDiary = new Button();
-		
+
 		addDiary.addClickListener(new ClickListener() {
-			
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 				getNavigationManager().navigateTo(new DiaryEditor(newDiaryItem));
-				
+
 			}
 		});
-		
+
 		setContent(diaryEntriesTable);
 		addDiary.setIcon(new ThemeResource("linegraphics/plus.png"));
-        getNavigationBar().setRightComponent(addDiary);
-        
+		getNavigationBar().setRightComponent(addDiary);
+
 	}
-	
+
 	@Override
 	protected void onBecomingVisible() {
-	    super.onBecomingVisible();
-
-	    diaries.refresh();
+		super.onBecomingVisible();
+		diaries.refresh();
 	}
 }
