@@ -1,8 +1,6 @@
 package ch.bfh.red.app.model.assignment;
 
-import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +25,7 @@ import javax.persistence.TemporalType;
 public abstract class Assignment {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -90,18 +88,18 @@ public abstract class Assignment {
 	public void setTriggerIntervalInSec(Integer triggerIntervalInSec) {
 		this.triggerIntervalInSec = triggerIntervalInSec;
 	}
-	
+
 	@PrePersist
 	void createdDate() {
-	 
-		this.createdDate  = Calendar.getInstance();
+
+		this.createdDate = Calendar.getInstance();
 	}
-	 
-	@PreUpdate	 
+
+	@PreUpdate
 	void updatedAt() {
-	
+
 		this.lastModifiedDate = Calendar.getInstance();
-	  
+
 	}
 
 }

@@ -5,16 +5,11 @@ import java.util.Calendar;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
-import ch.bfh.red.app.model.profile.Patient;
 
 /**
  * @author TEAM RED
@@ -23,106 +18,143 @@ import ch.bfh.red.app.model.profile.Patient;
 @Entity
 public class Medication extends AssignmentDataRange {
 
-   public enum DosisUnitEnum {
-      miligramm("mg"), pieces("stk"), mililiter("ml");
+	public enum DosisUnitEnum {
+		miligramm("mg"), pieces("stk"), mililiter("ml");
 
-      private String shortForm;
+		private String shortForm;
 
-      private DosisUnitEnum(String nV) {
-         this.shortForm = nV;
-      }
+		private DosisUnitEnum(String nV) {
+			this.shortForm = nV;
+		}
 
-      public String getNumericValue() {
-         return shortForm;
-      }
-   }
+		public String getNumericValue() {
+			return shortForm;
+		}
+	}
 
-   private Long dosis;
+	private Long dosis;
 
-   private Long intervalInHours;
+	private Long intervalInHours;
 
-   private Long stock;
+	private Long stock;
 
-   private String entry;
+	private String entry;
 
-   @Enumerated(EnumType.ORDINAL)
-   private DosisUnitEnum dosisUnit;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar lastIntake;
 
+	@Enumerated(EnumType.ORDINAL)
+	private DosisUnitEnum dosisUnit;
 
-   @ManyToOne(optional = false)
-   @JoinColumn(name = "medicine_fk")
-   @NotNull
-   private Medicine medicine;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "medicine_fk")
+	@NotNull
+	private Medicine medicine;
 
-   
-   public DosisUnitEnum getDosisUnit() {
-      return dosisUnit;
-   }
+	public DosisUnitEnum getDosisUnit() {
+		return dosisUnit;
+	}
 
-   public void setDosisUnit(DosisUnitEnum dosisUnit) {
-      this.dosisUnit = dosisUnit;
-   }
+	public void setDosisUnit(DosisUnitEnum dosisUnit) {
+		this.dosisUnit = dosisUnit;
+	}
 
-   public String getEntry() {
-      return entry;
-   }
+	public String getEntry() {
+		return entry;
+	}
 
-   public void setEntry(String entry) {
-      this.entry = entry;
-   }
+	public void setEntry(String entry) {
+		this.entry = entry;
+	}
 
-   /**
-    * @return the dosis
-    */
-   public Long getDosis() {
-      return dosis;
-   }
+	/**
+	 * @return the dosis
+	 */
+	public Long getDosis() {
+		return dosis;
+	}
 
-   /**
-    * @param dosis
-    *           the dosis to set
-    */
-   public void setDosis(Long dosis) {
-      this.dosis = dosis;
-   }
+	/**
+	 * @param dosis
+	 *            the dosis to set
+	 */
+	public void setDosis(Long dosis) {
+		this.dosis = dosis;
+	}
 
-   /**
-    * @return the intervalInHours
-    */
-   public Long getIntervalInHours() {
-      return intervalInHours;
-   }
+	/**
+	 * @return the intervalInHours
+	 */
+	public Long getIntervalInHours() {
+		return intervalInHours;
+	}
 
-   /**
-    * @param intervalInHours
-    *           the intervalInHours to set
-    */
-   public void setIntervalInHours(Long intervalInHours) {
-      this.intervalInHours = intervalInHours;
-   }
+	/**
+	 * @param intervalInHours
+	 *            the intervalInHours to set
+	 */
+	public void setIntervalInHours(Long intervalInHours) {
+		this.intervalInHours = intervalInHours;
+	}
 
-   /**
-    * @return the stock
-    */
-   public Long getStock() {
-      return stock;
-   }
+	/**
+	 * @return the stock
+	 */
+	public Long getStock() {
+		return stock;
+	}
 
-   /**
-    * @param stock
-    *           the stock to set
-    */
-   public void setStock(Long stock) {
-      this.stock = stock;
-   }
+	/**
+	 * @param stock
+	 *            the stock to set
+	 */
+	public void setStock(Long stock) {
+		this.stock = stock;
+	}
 
-   public Medicine getMedicine() {
-	   return medicine;
-   }
+	public Medicine getMedicine() {
+		return medicine;
+	}
 
-   public void setMedicine(Medicine medicine) {
-	   this.medicine = medicine;
-   }
+	public void setMedicine(Medicine medicine) {
+		this.medicine = medicine;
+	}
 
+	//TODO move into logic/controller class
+	public boolean isTimeForNextIntakeNow() {
+		
+		if(!super.isNowInRange()){
+			return false;
+		}
+		
+		if (lastIntake == null ){
+			return true;
+		}
+		
+		// now
+		Calendar tmpCalc = Calendar.getInstance();
+		
+		// now - interval
+		tmpCalc.add(Calendar.HOUR_OF_DAY, - intervalInHours.intValue());
+		
+		if(Calendar.getInstance().after(tmpCalc)){
+			return true;
+		}
+		
+		return false;
+	}
+	
+	   /**
+	 * @return the lastIntake
+	 */
+	public Calendar getLastIntake() {
+		return lastIntake;
+	}
 
+	/**
+	 * @param lastIntake the lastIntake to set
+	 */
+	public void setLastIntake(Calendar lastIntake) {
+		this.lastIntake = lastIntake;
+	}
 }

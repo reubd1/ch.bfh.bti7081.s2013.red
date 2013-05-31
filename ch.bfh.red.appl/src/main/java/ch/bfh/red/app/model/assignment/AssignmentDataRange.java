@@ -1,11 +1,7 @@
-/**
- * 
- */
 package ch.bfh.red.app.model.assignment;
 
 import java.util.Calendar;
 
-import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
@@ -14,14 +10,13 @@ import javax.persistence.TemporalType;
 
 /**
  * @author dimitri.haemmerli
- *
+ * 
  */
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class AssignmentDataRange extends Assignment {
-	
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar startDate;
 
@@ -45,6 +40,18 @@ public class AssignmentDataRange extends Assignment {
 	}
 
 	
-	
+	public boolean isNowInRange() {
+		if (endDate == null || startDate == null) {
+			return false;
+		}
+
+		Calendar now = Calendar.getInstance();
+
+		if (startDate.before(now) && endDate.after(now)) {
+			return true;
+		}
+
+		return false;
+	}
 
 }

@@ -1,5 +1,6 @@
 package ch.bfh.red.app.controller;
 
+import java.util.Calendar;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
@@ -9,11 +10,14 @@ import ch.bfh.red.app.model.assignment.Medication;
 import ch.bfh.red.app.model.assignment.Medication.DosisUnitEnum;
 import ch.bfh.red.app.model.assignment.Medicine;
 import ch.bfh.red.app.model.profile.Patient;
+import ch.bfh.red.app.view.RedAppUI;
+
+import com.vaadin.addon.jpacontainer.JPAContainer;
+import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 
 public class DemoDataGenerator {
 
-	final static String[] medis = { "Riatlin", "Morphium", "UML4ever", "IT", "Quality Assurance", "Research and Development",
-			"Production" };
+	final static String[] medis = { "Riatlin", "Morphium", "UML4ever", "Wundersalbe", "Smartis", "Placebo", "JavaChip" };
 
 	final static String[] fnames = { "Erich", "Pierre", "Olivier", "Mario", "Jan", "Guido" };
 	final static String[] lnames = { "Badertscher", "Fierz", "Büchel", "Super", "Locher", "Bucher" };
@@ -37,7 +41,7 @@ public class DemoDataGenerator {
 		Patient patient = new Patient();
 		patient.setFirstname("Bluberio");
 		patient.setName("Bluber");
-		patient.setCity("Bern");
+		patient.setCity(cities[0]);
 		patient.setIndependenceLevel(2);
 
 		em.getTransaction().begin();
@@ -47,9 +51,7 @@ public class DemoDataGenerator {
 
 	private static void createMedicine() {
 		em.getTransaction().begin();
-		Random r = new Random(0);
 		for (String cM : medis) {
-			// Medicine
 			Medicine m = new Medicine();
 
 			m.setName(cM);
@@ -59,24 +61,53 @@ public class DemoDataGenerator {
 		}
 
 		em.getTransaction().commit();
-
 	}
 
 	private static void createMedicaiton() {
 		em.getTransaction().begin();
 
-		Medication m = new Medication();
+		JPAContainer<Medicine> medicine = JPAContainerFactory.make(Medicine.class, RedAppUI.PERSISTENCE_UNIT);
 
-		Medicine medicine = em.find(Medicine.class, new Long(2));
+		Medication m = null;
 
-		m.setMedicine(medicine);
-		m.setDosis(10L);
-		m.setDosisUnit(DosisUnitEnum.miligramm);
-		m.setIntervalInHours(6L);
-		m.setStock(10L);
+		Random r = new Random(0);
+		r.nextBoolean();
 
-		em.persist(m);
+		for (Object oid : medicine.getItemIds()) {
+			if (r.nextBoolean()) {
+				// skip, every second...
+				continue;
+			}
+			m = new Medication();
+			
+			Calendar before = Calendar.getInstance();
+			before.set(Calendar.YEAR, 2012);
+			before.set(Calendar.MONTH, 7);
+			before.set(Calendar.DAY_OF_MONTH, r.nextInt(27)+1);
+			
+			
+			Calendar after = Calendar.getInstance();
+			after.set(Calendar.YEAR, 2020);
+			after.set(Calendar.MONTH, 7);
+			after.set(Calendar.DAY_OF_MONTH, r.nextInt(27)+1);
+
+			Long id = (Long) oid;
+
+			// load from DB
+			Medicine curMed = em.find(Medicine.class, id);
+			m.setMedicine(curMed);
+			m.setDosis(new Long(r.nextInt(100)));
+			m.setDosisUnit(DosisUnitEnum.miligramm);
+			m.setIntervalInHours(new Long(r.nextInt(3)));
+			m.setStock(new Long(r.nextInt(100)));
+			
+			m.setStartDate(before);
+			m.setEndDate(after);
 		
+
+			em.persist(m);
+		}
+
 		em.getTransaction().commit();
 	}
 }
