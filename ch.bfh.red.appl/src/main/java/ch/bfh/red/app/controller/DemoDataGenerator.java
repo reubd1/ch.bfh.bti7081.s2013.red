@@ -31,6 +31,7 @@ public class DemoDataGenerator {
 		Patient patient = new Patient();
 		patient.setFirstname("Bluberio");
 		patient.setName("Bluber");
+		patient.setCity("Bern");
 		patient.setIndependenceLevel(2);
 
 		em.getTransaction().begin();
