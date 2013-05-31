@@ -1,4 +1,5 @@
 package ch.bfh.red.app.controller;
+
 /**
  * Edit form for new Diary entries
  * 
@@ -6,11 +7,16 @@ package ch.bfh.red.app.controller;
  */
 import java.io.Serializable;
 import java.lang.reflect.Method;
-import java.util.Calendar;
 
 import ch.bfh.red.app.controller.notification.NotificationChecker;
-import ch.bfh.red.app.model.assignment.Diary;
-import ch.bfh.red.app.model.assignment.Diary.FeelingEnum;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+
+import ch.bfh.red.app.model.assignment.DiaryEntry;
+import ch.bfh.red.app.model.assignment.DiaryEntry.FeelingEnum;
+import ch.bfh.red.app.model.profile.Patient;
+import ch.bfh.red.app.model.profile.PatientDAO;
 import ch.bfh.red.app.view.DiarySummaryView;
 import ch.bfh.red.app.view.RedAppUI;
 
@@ -53,7 +59,28 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 	private Item diaryItem;
 	FieldGroup binder;
 
-	private JPAContainer<Diary> diaries;
+	private JPAContainer<DiaryEntry> diaryEntries;
+
+	// for test usage only
+	// @Inject
+	// private PatientDAO patientDAO;
+
+	// private DiaryAddedCallback diaryAddedCallback;
+
+	/**
+	 * An interface for users of this class, so that they can react on if new DiaryEntry was added.
+	 */
+	// interface DiaryAddedCallback {
+	//
+	// /**
+	// * Called when diary has been added.
+	// *
+	// * @param diary
+	// * the added diary
+	// */
+	// void diaryAdded(DiaryEntry diary);
+	//
+	// }
 
 	public DiaryEditor(final Item diaryItem) {
 
@@ -77,7 +104,7 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 		getNavigationBar().setRightComponent(submit);
 
 		setPreviousComponent(new DiarySummaryView());
-		this.diaries = JPAContainerFactory.make(Diary.class, RedAppUI.PERSISTENCE_UNIT);
+		this.diaryEntries = JPAContainerFactory.make(DiaryEntry.class, RedAppUI.PERSISTENCE_UNIT);
 
 		this.addListener(new EditorSavedListener() {
 			private static final long serialVersionUID = -4810596568407523252L;
@@ -85,10 +112,15 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 			@Override
 			public void editorSaved(EditorSavedEvent event) {
 				// get and set current DateTime
-				BeanItem<Diary> newDiaryItem = (BeanItem<Diary>) diaryItem;
-				newDiaryItem.getBean().setDateTime(Calendar.getInstance());
+				BeanItem<DiaryEntry> newDiaryItem = (BeanItem<DiaryEntry>) diaryItem;
+				// newDiaryItem.getBean().setDateTime(Calendar.getInstance());
 
-				diaries.addEntity(newDiaryItem.getBean());
+				// TODO use not only default patient
+				EntityManager em = Persistence.createEntityManagerFactory("redapp").createEntityManager();
+
+				newDiaryItem.getBean().setPatient(em.find(Patient.class, new Long(1)));
+
+				diaryEntries.addEntity(newDiaryItem.getBean());
 
 			}
 		});
@@ -112,7 +144,7 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 		ogFeel.setWidth("100.0%");
 		ogFeel.setHeight("80px");
 
-		for (FeelingEnum fe : Diary.FeelingEnum.values()) {
+		for (FeelingEnum fe : DiaryEntry.FeelingEnum.values()) {
 			ogFeel.addItem(fe);
 		}
 

@@ -7,7 +7,8 @@ package ch.bfh.red.app.controller.notification;
  */
 import java.util.Calendar;
 
-import ch.bfh.red.app.model.assignment.Diary;
+import ch.bfh.red.app.model.assignment.DiaryEntry;
+import ch.bfh.red.app.view.RedAppUI;
 import ch.bfh.red.app.view.RedAppUI;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
@@ -28,7 +29,7 @@ public class NotificationChecker {
 
 	private UI mainPage;
 
-	private JPAContainer<Diary> diaries;
+	private JPAContainer<DiaryEntry> diaryEntries;
 
 	private boolean active = false;
 
@@ -59,7 +60,7 @@ public class NotificationChecker {
 		}
 
 		// TODO: data access
-		diaries = JPAContainerFactory.makeNonCached(Diary.class, RedAppUI.PERSISTENCE_UNIT);
+		diaryEntries = JPAContainerFactory.makeNonCached(DiaryEntry.class, RedAppUI.PERSISTENCE_UNIT);
 
 		new CheckerThread().start();
 	}
@@ -105,12 +106,12 @@ public class NotificationChecker {
 			today.set(Calendar.SECOND, 0);
 			today.set(Calendar.MILLISECOND, 0);
 
-			Greater todayFilter = new Compare.Greater("dateTime", today);
+			Greater todayFilter = new Compare.Greater("createdDate", today);
 
-			diaries.addContainerFilter(todayFilter);
-			diaries.applyFilters();
+			diaryEntries.addContainerFilter(todayFilter);
+			diaryEntries.applyFilters();
 
-			if (diaries.size() < 1) {
+			if (diaryEntries.size() < 1) {
 				mainPage.access(new Runnable() {
 
 					@Override
@@ -120,7 +121,7 @@ public class NotificationChecker {
 				});
 			}
 
-			diaries.removeAllContainerFilters();
+			diaryEntries.removeAllContainerFilters();
 		}
 
 		private void checkMedication() {

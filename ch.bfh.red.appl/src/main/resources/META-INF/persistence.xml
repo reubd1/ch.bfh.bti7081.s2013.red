@@ -33,7 +33,7 @@
 			<!-- 2: create-tables -->
 			<!-- 3: "none" => element nicht definieren... -->
 			
-			<property name="eclipselink.ddl-generation" value="create-tables" />
+			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
 		</properties>
 	</persistence-unit>
 

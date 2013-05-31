@@ -43,7 +43,7 @@ public class HomeScreenView extends NavigationView {
 
 			}
 		});
-		butCreate.setIcon(new ThemeResource("linegraphics/prev.png"));
+		butCreate.setIcon(new ThemeResource("linegraphics/init.png"));
 		getNavigationBar().setRightComponent(butCreate);
 		
 

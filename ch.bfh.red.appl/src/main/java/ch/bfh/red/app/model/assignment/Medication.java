@@ -8,15 +8,20 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import ch.bfh.red.app.model.profile.Patient;
 
 /**
  * @author TEAM RED
  * 
  */
 @Entity
-public class Medication {
+public class Medication extends AssignmentDataRange {
 
    public enum DosisUnitEnum {
       miligramm("mg"), pieces("stk"), mililiter("ml");
@@ -32,10 +37,6 @@ public class Medication {
       }
    }
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   private Long id;
-
    private Long dosis;
 
    private Long intervalInHours;
@@ -44,20 +45,16 @@ public class Medication {
 
    private String entry;
 
-   @Temporal(TemporalType.TIMESTAMP)
-   private Calendar dateTime;
-
-   public Long getId() {
-      return id;
-   }
-
-   public void setId(Long id) {
-      this.id = id;
-   }
-
    @Enumerated(EnumType.ORDINAL)
    private DosisUnitEnum dosisUnit;
 
+
+   @ManyToOne(optional = false)
+   @JoinColumn(name = "medicine_fk")
+   @NotNull
+   private Medicine medicine;
+
+   
    public DosisUnitEnum getDosisUnit() {
       return dosisUnit;
    }
@@ -72,14 +69,6 @@ public class Medication {
 
    public void setEntry(String entry) {
       this.entry = entry;
-   }
-
-   public Calendar getDateTime() {
-      return dateTime;
-   }
-
-   public void setDateTime(Calendar dateTime) {
-      this.dateTime = dateTime;
    }
 
    /**
@@ -126,5 +115,14 @@ public class Medication {
    public void setStock(Long stock) {
       this.stock = stock;
    }
+
+   public Medicine getMedicine() {
+	   return medicine;
+   }
+
+   public void setMedicine(Medicine medicine) {
+	   this.medicine = medicine;
+   }
+
 
 }

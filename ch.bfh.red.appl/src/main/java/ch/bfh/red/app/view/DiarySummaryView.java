@@ -6,7 +6,7 @@ package ch.bfh.red.app.view;
 
 import ch.bfh.red.app.controller.DiaryEditor;
 import ch.bfh.red.app.controller.notification.NotificationChecker;
-import ch.bfh.red.app.model.assignment.Diary;
+import ch.bfh.red.app.model.assignment.DiaryEntry;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
@@ -24,12 +24,12 @@ public class DiarySummaryView extends NavigationView {
 
 	private Table diaryEntriesTable;
 
-	private JPAContainer<Diary> diaries;
+	private JPAContainer<DiaryEntry> diaryEntries;
 
-	final BeanItem<Diary> newDiaryItem = new BeanItem<Diary>(new Diary());
+	final BeanItem<DiaryEntry> newDiaryItem = new BeanItem<DiaryEntry>(new DiaryEntry());
 
 	public DiarySummaryView() {
-		diaries = JPAContainerFactory.make(Diary.class, RedAppUI.PERSISTENCE_UNIT);
+		diaryEntries = JPAContainerFactory.make(DiaryEntry.class, RedAppUI.PERSISTENCE_UNIT);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class DiarySummaryView extends NavigationView {
 
 		this.setCaption("Tagebuch Übersicht");
 
-		diaryEntriesTable = new Table(null, diaries);
+		diaryEntriesTable = new Table(null, diaryEntries);
 		diaryEntriesTable.setSelectable(true);
 		diaryEntriesTable.setImmediate(true);
 
@@ -72,7 +72,8 @@ public class DiarySummaryView extends NavigationView {
 
 	@Override
 	protected void onBecomingVisible() {
-		super.onBecomingVisible();
-		diaries.refresh();
+	    super.onBecomingVisible();
+
+	    diaryEntries.refresh();
 	}
 }
