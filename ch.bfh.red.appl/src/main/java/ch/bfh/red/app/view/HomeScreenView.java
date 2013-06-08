@@ -2,7 +2,6 @@ package ch.bfh.red.app.view;
 
 import java.util.logging.Logger;
 
-import ch.bfh.red.app.controller.DemoDataGenerator;
 import ch.bfh.red.app.controller.LoginService;
 
 import com.vaadin.addon.touchkit.ui.NavigationButton;
@@ -27,16 +26,16 @@ public class HomeScreenView extends NavigationView {
 
 	private static final Logger LOGGER = Logger.getLogger(HomeScreenView.class.getName());
 
-	LoginService loginService = LoginService.getInstance();
+	private LoginService loginService = LoginService.getInstance();
 
 	@Override
 	public void attach() {
 		super.attach();
 
 		// Check if a user has logged in
-		if (!loginService.isLoggedIn()) {
+		if (!loginService.isLoggedIn(getSession())) {
 			// Redirect to login view always if a user has not yet logged in
-			LOGGER.info("User unk, redirect to login page");
+			LOGGER.info("User unknown, redirect to login page");
 
 			getNavigationManager().navigateTo(new RedLoginView());
 
@@ -61,21 +60,25 @@ public class HomeScreenView extends NavigationView {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				DemoDataGenerator.initDemoData();
-
+				loginService.doLogout(getSession());
+				
+				//TODO make sure that redirect works!
+				getNavigationManager().navigateTo(new HomeScreenView());
 			}
 		});
-		butCreate.setIcon(new ThemeResource("linegraphics/init.png"));
+		butCreate.setIcon(new ThemeResource("linegraphics/logout.png"));
 		getNavigationBar().setRightComponent(butCreate);
 
 		VerticalComponentGroup group = new VerticalComponentGroup();
 
+		//TODO customize, depending on logged in user!
+		
 		NavigationButton btnDiary = new NavigationButton("Tagebuch", new DiarySummaryView());
 		group.addComponents(btnDiary);
 
 		NavigationButton btnMedi = new NavigationButton("Medikamente", new MedicineMainView());
 		group.addComponents(btnMedi);
-
+		
 		this.setContent(group);
 
 	}

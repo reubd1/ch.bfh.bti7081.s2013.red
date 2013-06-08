@@ -1,6 +1,5 @@
 package ch.bfh.red.app.view;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import ch.bfh.red.app.controller.LoginService;

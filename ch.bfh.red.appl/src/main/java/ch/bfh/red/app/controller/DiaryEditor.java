@@ -9,14 +9,8 @@ import java.io.Serializable;
 import java.lang.reflect.Method;
 
 import ch.bfh.red.app.controller.notification.NotificationChecker;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-
 import ch.bfh.red.app.model.assignment.DiaryEntry;
 import ch.bfh.red.app.model.assignment.DiaryEntry.FeelingEnum;
-import ch.bfh.red.app.model.profile.Patient;
-import ch.bfh.red.app.model.profile.PatientDAO;
 import ch.bfh.red.app.view.DiarySummaryView;
 import ch.bfh.red.app.view.RedAppUI;
 
@@ -113,9 +107,8 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 			public void editorSaved(EditorSavedEvent event) {
 				// get and set current DateTime
 				BeanItem<DiaryEntry> newDiaryItem = (BeanItem<DiaryEntry>) diaryItem;
-				// newDiaryItem.getBean().setDateTime(Calendar.getInstance());
 
-				newDiaryItem.getBean().setPatient(LoginService.getInstance().getLoggedInUser());
+				newDiaryItem.getBean().setPatient(LoginService.getInstance().getLoggedInUser(getSession()));
 
 				diaryEntries.addEntity(newDiaryItem.getBean());
 
