@@ -115,10 +115,7 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 				BeanItem<DiaryEntry> newDiaryItem = (BeanItem<DiaryEntry>) diaryItem;
 				// newDiaryItem.getBean().setDateTime(Calendar.getInstance());
 
-				// TODO use not only default patient
-				EntityManager em = Persistence.createEntityManagerFactory("redapp").createEntityManager();
-
-				newDiaryItem.getBean().setPatient(em.find(Patient.class, new Long(1)));
+				newDiaryItem.getBean().setPatient(LoginService.getInstance().getLoggedInUser());
 
 				diaryEntries.addEntity(newDiaryItem.getBean());
 

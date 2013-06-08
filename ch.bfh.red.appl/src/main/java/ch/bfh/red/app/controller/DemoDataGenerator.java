@@ -17,13 +17,25 @@ import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 
 public class DemoDataGenerator {
 
-	final static String[] medis = { "Riatlin", "Morphium", "UML4ever", "Wundersalbe", "Smartis", "Placebo", "JavaChip" };
+	final static String[] medis = { "testRiatlin", "Morphium", "UML4ever", "Wundersalbe", "Smartis", "Placebo", "JavaChip" };
 
 	final static String[] fnames = { "Erich", "Pierre", "Olivier", "Mario", "Jan", "Guido" };
 	final static String[] lnames = { "Badertscher", "Fierz", "Büchel", "Super", "Locher", "Bucher" };
 	final static String cities[] = { "Bern", "Burgdorf", "Biel", "Neverland" };
 
 	private static EntityManager em = null;
+
+	public static void doInitializeIfDataIsMissing(){
+		JPAContainer<Patient> patients = JPAContainerFactory.make(Patient.class, RedAppUI.PERSISTENCE_UNIT);
+		
+		if(patients.size() >= 1) {
+			System.out.println("######################### Patients found... continue");
+			return;
+		} else {
+			System.out.println("######################### do load patients...");
+			initDemoData();
+		}
+	}
 
 //	@RolesAllowed
 	public static void initDemoData() {
@@ -39,14 +51,25 @@ public class DemoDataGenerator {
 	}
 
 	private static void createPatient() {
-		Patient patient = new Patient();
-		patient.setFirstname("Bluberio");
-		patient.setName("Bluber");
-		patient.setCity(cities[0]);
-		patient.setIndependenceLevel(2);
-
 		em.getTransaction().begin();
-		em.persist(patient);
+		Patient bluber = new Patient();
+		bluber.setFirstname("Bluberio");
+		bluber.setName("Bluber");
+		bluber.setLoginName("bluber");
+		bluber.setLoginPassword("bluber");
+		bluber.setCity(cities[0]);
+		bluber.setIndependenceLevel(2);
+		em.persist(bluber);
+		
+		Patient mario = new Patient();
+		mario.setFirstname("Mario");
+		mario.setName("Super");
+		mario.setLoginName("mario");
+		mario.setLoginPassword("mario");
+		mario.setCity(cities[1]);
+		mario.setIndependenceLevel(4);
+
+		em.persist(mario);
 		em.getTransaction().commit();
 	}
 

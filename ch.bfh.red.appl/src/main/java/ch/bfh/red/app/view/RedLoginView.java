@@ -1,10 +1,13 @@
 package ch.bfh.red.app.view;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import ch.bfh.red.app.controller.LoginService;
+import ch.bfh.red.app.controller.notification.NotificationChecker;
 
 import com.vaadin.addon.touchkit.ui.NavigationView;
+import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -38,13 +41,13 @@ public class RedLoginView extends NavigationView implements ClickListener {
 
 	public void attach() {
 		super.attach();
-
+		NotificationChecker.getInstance().setActive(false);
 		buildView();
 	}
 
 	private void buildView() {
 		this.setCaption("Login to REDapp");
-		
+
 		// Create the user input field
 		user = new TextField("User:");
 		user.setWidth("300px");
@@ -62,6 +65,7 @@ public class RedLoginView extends NavigationView implements ClickListener {
 
 		// Create login button
 		loginButton = new Button("Login", this);
+		loginButton.setClickShortcut(KeyCode.ENTER);
 
 		// Add both to a panel
 		VerticalLayout fields = new VerticalLayout(user, password, loginButton);
@@ -76,8 +80,8 @@ public class RedLoginView extends NavigationView implements ClickListener {
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-
-		LOGGER.info("login Buttion was clicked");
+		LOGGER.warning("login Buttion was clicked, doLogin for user: " + user.getValue());
+		LOGGER.info("login Buttion was clicked, doLogin for user: " + user.getValue());
 
 		//
 		// Validate the fields using the navigator. By using validors for the
@@ -89,14 +93,17 @@ public class RedLoginView extends NavigationView implements ClickListener {
 		}
 
 		// call loginService to perform the login
-		if (loginService.doLogin(getSession(), user.getValue(), password.getValue() )) {
+		if (loginService.doLogin(getSession(), user.getValue(), password.getValue())) {
 			LOGGER.info("User successfully logged in");
+
+			NotificationChecker.getInstance().setActive(true);
+
 			// Navigate to home view
 			getNavigationManager().navigateTo(new HomeScreenView());
 
 		} else {
 			LOGGER.info("User / password not valid! access denied");
-			
+
 			// Wrong password clear the password field and refocuses it
 			this.password.setValue(null);
 			this.password.focus();

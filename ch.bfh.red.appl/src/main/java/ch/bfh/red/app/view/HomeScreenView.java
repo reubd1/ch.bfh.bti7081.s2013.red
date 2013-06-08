@@ -36,9 +36,10 @@ public class HomeScreenView extends NavigationView {
 		// Check if a user has logged in
 		if (!loginService.isLoggedIn()) {
 			// Redirect to login view always if a user has not yet logged in
-			LOGGER.info("User unknown, redirect to login page");
+			LOGGER.info("User unk, redirect to login page");
 
 			getNavigationManager().navigateTo(new RedLoginView());
+
 		}
 		// user logged in byPass
 
@@ -52,6 +53,11 @@ public class HomeScreenView extends NavigationView {
 		Button butCreate = new Button();
 
 		butCreate.addClickListener(new ClickListener() {
+
+			/**
+			 * generated uid
+			 */
+			private static final long serialVersionUID = 1066043840247023867L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
