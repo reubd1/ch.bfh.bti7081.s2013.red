@@ -62,8 +62,7 @@ public class HomeScreenView extends NavigationView {
 			public void buttonClick(ClickEvent event) {
 				loginService.doLogout(getSession());
 				
-				//TODO make sure that redirect works!
-				getNavigationManager().navigateTo(new HomeScreenView());
+				getNavigationManager().navigateTo(new RedLoginView());
 			}
 		});
 		butCreate.setIcon(new ThemeResource("linegraphics/logout.png"));
