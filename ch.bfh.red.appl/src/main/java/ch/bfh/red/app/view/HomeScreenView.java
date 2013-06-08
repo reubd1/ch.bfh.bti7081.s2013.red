@@ -1,6 +1,9 @@
 package ch.bfh.red.app.view;
 
+import java.util.logging.Logger;
+
 import ch.bfh.red.app.controller.DemoDataGenerator;
+import ch.bfh.red.app.controller.LoginService;
 
 import com.vaadin.addon.touchkit.ui.NavigationButton;
 import com.vaadin.addon.touchkit.ui.NavigationView;
@@ -22,9 +25,23 @@ public class HomeScreenView extends NavigationView {
 	 */
 	private static final long serialVersionUID = -1942941235972403710L;
 
+	private static final Logger LOGGER = Logger.getLogger(HomeScreenView.class.getName());
+
+	LoginService loginService = LoginService.getInstance();
+
 	@Override
 	public void attach() {
 		super.attach();
+
+		// Check if a user has logged in
+		if (!loginService.isLoggedIn()) {
+			// Redirect to login view always if a user has not yet logged in
+			LOGGER.info("User unknown, redirect to login page");
+
+			getNavigationManager().navigateTo(new RedLoginView());
+		}
+		// user logged in byPass
+
 		buildView();
 	}
 
@@ -54,6 +71,7 @@ public class HomeScreenView extends NavigationView {
 		group.addComponents(btnMedi);
 
 		this.setContent(group);
+
 	}
 
 }
