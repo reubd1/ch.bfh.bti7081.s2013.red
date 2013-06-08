@@ -10,16 +10,17 @@ import com.vaadin.server.VaadinSession;
 /**
  * @author stola
  * 
+ *         This login Service handles the login, session and user object. <br>
+ *         After the prototype this should be replaced or rebased to JAAS Realm or something equal.
  */
 
 public class LoginService {
 
 	private final static Logger LOGGER = Logger.getLogger(LoginService.class.getName());
-	
+
 	private boolean loggedIn = false;
-	
+
 	public static LoginService instance;
-	
 
 	public LoginService() {
 
@@ -41,21 +42,20 @@ public class LoginService {
 		// I use a dummy username and password.
 		//
 		boolean isValid = username.equals("mario") && password.equals("mario");
-		
-		if(isValid) {
+
+		if (isValid) {
 			// Store the current user in the service session
 			session.setAttribute("user", username);
-			
+
 			// set logged in Flag
 			loggedIn = true;
-		} 
-		
+		}
+
 		return isValid;
 	}
-	
-	public boolean isLoggedIn(){
+
+	public boolean isLoggedIn() {
 		return loggedIn;
 	}
-	
-	
+
 }
