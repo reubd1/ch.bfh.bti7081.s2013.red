@@ -25,6 +25,7 @@ public class DemoDataGenerator {
 
 	private static EntityManager em = null;
 
+//	@RolesAllowed
 	public static void initDemoData() {
 
 		em = Persistence.createEntityManagerFactory("redapp").createEntityManager();
