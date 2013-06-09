@@ -21,6 +21,7 @@ import com.vaadin.data.Item;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -120,19 +121,12 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 		mainLayout.setImmediate(false);
 		mainLayout.setSizeFull();
 
-		// lbFeel
-		lbFeel = new Label();
-		lbFeel.setImmediate(false);
-		lbFeel.setWidth("-1px");
-		lbFeel.setHeight("-1px");
-		lbFeel.setValue("Wie fühlst du dich heute?");
-		mainLayout.addComponent(lbFeel, "top:60.0px;left:80.0px;");
-
 		// ogFeel
-		ogFeel = new OptionGroup();
+		ogFeel = new OptionGroup("Wie fühlst du dich heute?");
 		ogFeel.setImmediate(false);
 		ogFeel.setWidth("100.0%");
 		ogFeel.setHeight("80px");
+		ogFeel.setRequired(true);
 
 		for (FeelingEnum fe : DiaryEntry.FeelingEnum.values()) {
 			ogFeel.addItem(fe);
@@ -140,19 +134,17 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 
 		mainLayout.addComponent(ogFeel, "top:80.0px;left:80.0px;");
 
-		// lbEntry
-		lbEntry = new Label();
-		lbEntry.setImmediate(false);
-		lbEntry.setWidth("-1px");
-		lbEntry.setHeight("-1px");
-		lbEntry.setValue("Tagebucheintrag:");
-		mainLayout.addComponent(lbEntry, "top:180.0px;left:80.0px;");
-
 		// taEntry
-		taEntry = new TextArea();
+		taEntry = new TextArea("Tagebucheintrag:");
 		taEntry.setImmediate(false);
 		taEntry.setWidth("340px");
 		taEntry.setHeight("156px");
+		taEntry.setNullRepresentation("Liebes Tagebuch");
+		
+		taEntry.setRequired(true);
+		
+		taEntry.setInvalidAllowed(false);
+		taEntry.addValidator(new StringLengthValidator("Not long enough (min 10) or null", 10, 100, true));
 
 		mainLayout.addComponent(taEntry, "top:200.0px;left:80.0px;");
 
@@ -167,13 +159,17 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 		binder.bind(taEntry, "entry");
 		binder.bind(ogFeel, "feeling");
 
-		taEntry.setValue("Liebes Tagebuch.... ");
 
 		setContent(mainLayout);
 
 	}
 
 	public void buttonClick(ClickEvent event) {
+		
+		// to validate
+		if(!taEntry.isValid() || !ogFeel.isValid()){
+			return;
+		}
 
 		if (event.getButton() == submit) {
 			try {
@@ -207,6 +203,10 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 
 	public static class EditorSavedEvent extends Component.Event {
 
+		/**
+		 * generated UID
+		 */
+		private static final long serialVersionUID = -4439832556462844093L;
 		private Item savedItem;
 
 		public EditorSavedEvent(Component source, Item savedItem) {

@@ -17,7 +17,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 
 @Widgetset("ch.bfh.red.app.widgetset.RedappWidgetset")
-@Title("My RedApp")
+@Title("The REDApp")
 @Theme("redapp")
 @Push
 public class RedAppUI extends UI {
