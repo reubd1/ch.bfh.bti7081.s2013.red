@@ -46,9 +46,7 @@ public class LoginService extends Application  {
 
 	@Override
 	public void init() {
-		
-		// initialize mainWindow and other stuff
-
+		DemoDataGenerator.doInitializeIfDataIsMissing();
 	}
 	
 	public static LoginService getInstance() {
@@ -60,20 +58,14 @@ public class LoginService extends Application  {
 	}
 
 	public boolean doLogin(VaadinSession session, String username, String password) {
-		LOGGER.warning("doLogin called for user: " + username);
-
-		//
-		// Validate username and password with database here. For examples sake
-		// I use a dummy username and password.
-		//
-		// boolean isValid = username.equals("mario") && password.equals("mario");
+		LOGGER.info("doLogin called for user: " + username);
 
 		Equal usrFilter = new Compare.Equal("loginName", username);
 		patientsJPA.removeAllContainerFilters();
 		patientsJPA.addContainerFilter(usrFilter);
 		patientsJPA.applyFilters();
 
-		if (patientsJPA.size() == 1) {
+		if (patientsJPA != null && patientsJPA.size() == 1) {
 			EntityManager em = Persistence.createEntityManagerFactory("redapp").createEntityManager();
 			Patient loadedUser = em.find(Patient.class, patientsJPA.getItemIds());
 			System.out.println("USER found :-) ");
