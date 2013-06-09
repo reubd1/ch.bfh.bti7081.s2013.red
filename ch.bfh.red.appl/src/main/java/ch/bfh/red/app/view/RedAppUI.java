@@ -15,21 +15,21 @@ import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 
+@Widgetset("ch.bfh.red.app.widgetset.RedappWidgetset")
 @Title("My RedApp")
 @Theme("redapp")
 @Push
-@Widgetset("ch.bfh.red.app.widgetset.RedappWidgetset")
 public class RedAppUI extends UI {
 	
 	public static final String PERSISTENCE_UNIT = "redapp"; // TODO irgendwo im data access Bereich definieren
 
+	public static final String FACELOGIN = "redapp";
+	
 	private static final long serialVersionUID = -3919212212063135503L;
 	
-	public static final String FACELOGIN = "redapp";
 
 	@Override
 	protected void init(VaadinRequest request) {
-		
 		// Set the window or tab title
 		getPage().setTitle("Welcome RedApp");
 
@@ -39,8 +39,6 @@ public class RedAppUI extends UI {
 		NotificationChecker checker = NotificationChecker.getInstance();
 		checker.setMainPage(this);
 		checker.start();
-
-        
 
 	}
 }

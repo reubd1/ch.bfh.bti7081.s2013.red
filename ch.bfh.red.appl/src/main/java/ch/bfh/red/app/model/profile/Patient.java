@@ -30,6 +30,10 @@ public class Patient extends Person{
     @Min(1)
 	@Max(5)
 	private Integer independenceLevel;
+	
+	private String loginName;
+	
+	private String loginPassword;
 
 	@OneToMany(mappedBy = "patient", cascade=CascadeType.ALL)
 	private Collection<DiaryEntry> diaryEntry;
@@ -71,6 +75,34 @@ public class Patient extends Person{
 
 	public void setEvents(Collection<Event> events) {
 		this.events = events;
+	}
+
+	/**
+	 * @return the loginName
+	 */
+	public String getLoginName() {
+		return loginName;
+	}
+
+	/**
+	 * @param loginName the loginName to set
+	 */
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
+
+	/**
+	 * @return the loginPassword
+	 */
+	public String getLoginPassword() {
+		return loginPassword;
+	}
+
+	/**
+	 * @param loginPassword the loginPassword to set
+	 */
+	public void setLoginPassword(String loginPassword) {
+		this.loginPassword = loginPassword;
 	}
 
 }

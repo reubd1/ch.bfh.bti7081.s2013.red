@@ -30,13 +30,15 @@ public class DiarySummaryView extends NavigationView {
 
 	public DiarySummaryView() {
 		diaryEntries = JPAContainerFactory.make(DiaryEntry.class, RedAppUI.PERSISTENCE_UNIT);
+		
+		//TODO Filter elements to current logged in user!
 	}
 
 	@Override
 	public void attach() {
 		super.attach();
 		buildView();
-		
+
 		// Turn on notifications
 		NotificationChecker.getInstance().setActive(true);
 	}
@@ -57,6 +59,11 @@ public class DiarySummaryView extends NavigationView {
 
 		addDiary.addClickListener(new ClickListener() {
 
+			/**
+			 * generated UID
+			 */
+			private static final long serialVersionUID = -5952633399481673479L;
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 				getNavigationManager().navigateTo(new DiaryEditor(newDiaryItem));
@@ -72,8 +79,8 @@ public class DiarySummaryView extends NavigationView {
 
 	@Override
 	protected void onBecomingVisible() {
-	    super.onBecomingVisible();
+		super.onBecomingVisible();
 
-	    diaryEntries.refresh();
+		diaryEntries.refresh();
 	}
 }
