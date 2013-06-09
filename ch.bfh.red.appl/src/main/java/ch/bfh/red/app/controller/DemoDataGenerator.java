@@ -6,6 +6,9 @@ import java.util.Random;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
+import ch.bfh.red.app.model.assignment.DiaryEntry;
+import ch.bfh.red.app.model.assignment.DiaryEntry.FeelingEnum;
+import ch.bfh.red.app.model.assignment.Event;
 import ch.bfh.red.app.model.assignment.Medication;
 import ch.bfh.red.app.model.assignment.Medication.DosisUnitEnum;
 import ch.bfh.red.app.model.assignment.Medicine;
@@ -34,7 +37,10 @@ public class DemoDataGenerator {
 
 		createMedicine();
 		createMedicaiton();
+		
+		createEvent();
 
+//		createDiary();
 	}
 
 	private static void createPatient() {
@@ -46,6 +52,23 @@ public class DemoDataGenerator {
 
 		em.getTransaction().begin();
 		em.persist(patient);
+		em.getTransaction().commit();
+	}
+	
+	private static void createDiary() {
+		DiaryEntry diary = new DiaryEntry();
+		
+		Calendar createdDate = Calendar.getInstance();
+		createdDate.set(Calendar.YEAR, 2013);
+		createdDate.set(Calendar.MONTH, 6);
+		createdDate.set(Calendar.DAY_OF_MONTH, 9);
+		
+		diary.setCreatedDate(createdDate);
+		diary.setFeeling(FeelingEnum.SCHLECHT);
+		diary.setEntry("testeintrag");
+
+		em.getTransaction().begin();
+		em.persist(diary);
 		em.getTransaction().commit();
 	}
 
@@ -109,5 +132,37 @@ public class DemoDataGenerator {
 		}
 
 		em.getTransaction().commit();
+	}
+	
+	private static void createEvent() {
+
+		Event ev = new Event();
+			
+			Calendar before = Calendar.getInstance();
+			before.set(Calendar.YEAR, 2012);
+			before.set(Calendar.MONTH, 7);
+			before.set(Calendar.DAY_OF_MONTH, 20);
+			
+			
+			Calendar after = Calendar.getInstance();
+			after.set(Calendar.YEAR, 2020);
+			after.set(Calendar.MONTH, 7);
+			after.set(Calendar.DAY_OF_MONTH, 20);
+			
+			Calendar created = Calendar.getInstance();
+			created.set(Calendar.YEAR, 2013);
+			created.set(Calendar.MONTH, 6);
+			created.set(Calendar.DAY_OF_MONTH, 9);
+
+			ev.setCreatedDate(created);
+			ev.setStartDate(before);
+			ev.setEndDate(after);
+			ev.setLocation("Bern");
+			ev.setName("Therapiesitzung mit Dr. X");
+			
+
+			em.getTransaction().begin();
+			em.persist(ev);
+			em.getTransaction().commit();
 	}
 }

@@ -46,6 +46,9 @@ public class HomeScreenView extends NavigationView {
 		getNavigationBar().setRightComponent(butCreate);
 
 		VerticalComponentGroup group = new VerticalComponentGroup();
+		
+		NavigationButton btnOverview = new NavigationButton("Übersicht", new OverviewView());
+		group.addComponents(btnOverview);
 
 		NavigationButton btnDiary = new NavigationButton("Tagebuch", new DiarySummaryView());
 		group.addComponents(btnDiary);
