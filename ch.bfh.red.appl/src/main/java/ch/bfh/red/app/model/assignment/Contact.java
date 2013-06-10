@@ -33,42 +33,63 @@ public class Contact extends Assignment {
     inverseJoinColumns = {@JoinColumn(name = "Contact_FK")})  
     private Collection<Patient> patients;
 
-
+	/**
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
-
+	/**
+	 * @param name
+	 *            the name to set
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
+	/**
+	 * @return the firstname
+	 */
 	public String getFirstname() {
 		return firstname;
 	}
 
-
+	/**
+	 * @param fistname
+	 *            the firstname to set
+	 */
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
 
-
+	/**
+	 * @return the phoneNumber
+	 */
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-
+	/**
+	 * @param phonenumber
+	 *            the phonenumber to set
+	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
-
+	
+	/**
+	 * @return a collection of patients
+	 */
 	public Collection<Patient> getPatients() {
 		return patients;
 	}
 
-
+	/**
+	 * @param patients
+	 *            the patients to set
+	 */
 	public void setPatients(Collection<Patient> patients) {
 		this.patients = patients;
 	}
