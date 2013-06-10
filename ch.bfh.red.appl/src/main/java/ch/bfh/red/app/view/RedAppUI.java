@@ -5,6 +5,7 @@ package ch.bfh.red.app.view;
  *
  */
 
+import ch.bfh.red.app.controller.DemoDataGenerator;
 import ch.bfh.red.app.controller.notification.NotificationChecker;
 
 import com.vaadin.addon.touchkit.ui.NavigationManager;
@@ -16,7 +17,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 
 @Widgetset("ch.bfh.red.app.widgetset.RedappWidgetset")
-@Title("My RedApp")
+@Title("The RedApp")
 @Theme("redapp")
 @Push
 public class RedAppUI extends UI {
@@ -30,6 +31,9 @@ public class RedAppUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
+		// create demo data, if not already initialized....
+		DemoDataGenerator.doInitializeIfDataIsMissing();
+		
 		// Set the window or tab title
 		getPage().setTitle("Welcome RedApp");
 
