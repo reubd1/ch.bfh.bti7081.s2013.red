@@ -33,6 +33,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.UI;
@@ -184,6 +185,7 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 
 		// to validate
 		if (!taEntry.isValid() || !ogFeel.isValid()) {
+			Notification.show("Bitte Daten vervollständigen!");
 			return;
 		}
 
