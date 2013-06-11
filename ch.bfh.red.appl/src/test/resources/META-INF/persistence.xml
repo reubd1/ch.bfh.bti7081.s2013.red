@@ -23,9 +23,9 @@
 			<!-- <property name="eclipselink.jdbc.url" value="jdbc:hsqldb:file:redappdb/test_testuni_reDB;shutdown=true" /> -->
 
 			<!-- 2: server mode, good for debugging with DB Manager or any JDBC tool -->
-			<!-- <property name="eclipselink.jdbc.url" value="jdbc:hsqldb:hsql://localhost:9001" /> -->
+			 <property name="eclipselink.jdbc.url" value="jdbc:hsqldb:hsql://localhost:9001" /> 
 
-			<property name="eclipselink.jdbc.url" value="jdbc:hsqldb:file:redappdb/test_testuni_reDB;shutdown=true" />
+			<!--<property name="eclipselink.jdbc.url" value="jdbc:hsqldb:file:redappdb/test_testuni_reDB;shutdown=true" /> -->
 
 			<!-- == DB ddl generation by EclipseLink ====================================== -->
 			<!-- http://wiki.eclipse.org/EclipseLink/Examples/JPA/DDL -->
