@@ -11,8 +11,6 @@ import ch.bfh.red.app.model.assignment.Medication;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.addon.touchkit.ui.NavigationView;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -62,15 +60,6 @@ public class MedicineMainView extends NavigationView {
 		mediEntriesTable.addContainerProperty("Interval", Long.class, null);
 		mediEntriesTable.addContainerProperty("Eingenommen", Button.class, null);
 
-		mediEntriesTable.addValueChangeListener(new ValueChangeListener() {
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				System.out.println(event);
-			}
-		});
-
-		int i = 0;
 		for (Object oid : medication.getItemIds()) {
 			Long id = (Long) oid;
 
@@ -123,7 +112,7 @@ public class MedicineMainView extends NavigationView {
 
 			tableRow.add(isTaken);
 
-			mediEntriesTable.addItem(tableRow.toArray(), i++);
+			mediEntriesTable.addItem(tableRow.toArray(), null);
 		}
 		
 		setContent(mediEntriesTable);
