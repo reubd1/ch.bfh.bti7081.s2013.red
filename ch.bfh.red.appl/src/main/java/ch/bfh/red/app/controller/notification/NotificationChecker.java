@@ -16,6 +16,7 @@ import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.data.util.filter.Compare;
 import com.vaadin.data.util.filter.Compare.Greater;
+import com.vaadin.shared.Position;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
@@ -62,8 +63,8 @@ public class NotificationChecker {
 			throw new IllegalStateException("mainPage is not specified");
 		}
 
-		diaryEntries = JPAContainerFactory.make(DiaryEntry.class, RedAppUI.PERSISTENCE_UNIT);
-		medications = JPAContainerFactory.make(Medication.class, RedAppUI.PERSISTENCE_UNIT);
+		diaryEntries = JPAContainerFactory.makeNonCached(DiaryEntry.class, RedAppUI.PERSISTENCE_UNIT);
+		medications = JPAContainerFactory.makeNonCached(Medication.class, RedAppUI.PERSISTENCE_UNIT);
 
 		new CheckerThread().start();
 	}
@@ -95,20 +96,23 @@ public class NotificationChecker {
 			try {
 				Thread.sleep(REFRESH_INTERVAL_MS);
 			} catch (InterruptedException e) {
+				
 			}
 		}
 
-		private void showMessage(final String message) {
+		private void showMessage(final String message, final Position position) {
 			mainPage.access(new Runnable() {
 
 				@Override
 				public void run() {
 					Notification notification = new Notification(message);
 					notification.setHtmlContentAllowed(true);
+					notification.setPosition(position);
 					notification.show(mainPage.getPage());
 				}
 			});
 		}
+		
 
 		/**
 		 * Check if there is an diary entry for today
@@ -126,7 +130,7 @@ public class NotificationChecker {
 			diaryEntries.applyFilters();
 
 			if (diaryEntries.size() < 1) {
-				showMessage("Tagebuch führen!");
+				showMessage("Tagebuch führen!", Position.BOTTOM_CENTER);
 			}
 
 			diaryEntries.removeAllContainerFilters();
@@ -147,7 +151,7 @@ public class NotificationChecker {
 				}
 			}
 			if (!medisToTake.isEmpty()) {
-				showMessage("Folgende Medikamente jetzt einnehmen: <br> " + medisToTake);
+				showMessage("Folgende Medikamente jetzt einnehmen: <br> " + medisToTake, Position.MIDDLE_CENTER);
 			}
 		}
 

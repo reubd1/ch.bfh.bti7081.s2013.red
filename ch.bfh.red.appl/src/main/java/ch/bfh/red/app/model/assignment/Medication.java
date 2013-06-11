@@ -137,7 +137,7 @@ public class Medication extends AssignmentDataRange {
 		// now - interval
 		tmpCalc.add(Calendar.HOUR_OF_DAY, - intervalInHours.intValue());
 		
-		if(Calendar.getInstance().after(tmpCalc)){
+		if(lastIntake.before(tmpCalc)){
 			return true;
 		}
 		

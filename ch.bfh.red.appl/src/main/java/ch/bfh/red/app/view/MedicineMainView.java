@@ -1,6 +1,7 @@
 package ch.bfh.red.app.view;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -10,30 +11,32 @@ import ch.bfh.red.app.model.assignment.Medication;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.addon.touchkit.ui.NavigationView;
-import com.vaadin.data.util.BeanItem;
-import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Table;
 
 /**
+ * Shows a List of medications which the patient has to take <br>
+ * The user is able to record his medication consumation
+ * 
  * @author stola
  */
-public class MedicineMainView extends NavigationView implements ClickListener {
+public class MedicineMainView extends NavigationView {
 
 	/**
 	 * generated UID
 	 */
 	private static final long serialVersionUID = 1276328592221877100L;
 
+	private static final String ALREADY_TAKEN_TXT = "bereits eingenommen";
+	private static final String NOW_TAKEN_TXT = "jetzt eingenommen";
+
 	private JPAContainer<Medication> medication;
 
-	BeanItemContainer<Medication> beans = new BeanItemContainer<Medication>(Medication.class);
-
 	private Table mediEntriesTable;
-
-	final BeanItem<Medication> newMedicaionItem = new BeanItem<Medication>(new Medication());
 
 	public MedicineMainView() {
 		medication = JPAContainerFactory.make(Medication.class, RedAppUI.PERSISTENCE_UNIT);
@@ -48,35 +51,66 @@ public class MedicineMainView extends NavigationView implements ClickListener {
 	private void buildView() {
 		this.setCaption("Medikamente");
 
-		// mediEntriesTable = new Table(null, medication);
 		mediEntriesTable = new Table();
 		mediEntriesTable.setSelectable(true);
 		mediEntriesTable.setImmediate(true);
-
 		mediEntriesTable.setSizeFull();
 
-		EntityManager em = Persistence.createEntityManagerFactory("redapp").createEntityManager();
 		mediEntriesTable.addContainerProperty("Name", String.class, null);
 		mediEntriesTable.addContainerProperty("Dosis", String.class, null);
 		mediEntriesTable.addContainerProperty("Lager", Long.class, null);
 		mediEntriesTable.addContainerProperty("Interval", Long.class, null);
-		mediEntriesTable.addContainerProperty("Eingenommen", CheckBox.class, null);
-		//
-		int j = 0;
+		mediEntriesTable.addContainerProperty("Eingenommen", Button.class, null);
+
+		mediEntriesTable.addValueChangeListener(new ValueChangeListener() {
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				System.out.println(event);
+			}
+		});
+
+		int i = 0;
 		for (Object oid : medication.getItemIds()) {
 			Long id = (Long) oid;
 
 			// load from DB
+			EntityManager em = Persistence.createEntityManagerFactory("redapp").createEntityManager();
 			Medication curMed = em.find(Medication.class, id);
 
-			boolean isTimeToTakeMed = curMed.isTimeForNextIntakeNow();
-			CheckBox isTaken = null;
-			if (isTimeToTakeMed) {
-				isTaken = new CheckBox("jetzt geschluckt");
-				// isTaken.setValue(curMed.isTimeForNextIntakeNow());
+			final Button isTaken = new Button();
+			isTaken.setData(oid);
+			isTaken.addClickListener(new ClickListener() {
+
+				@Override
+				public void buttonClick(ClickEvent event) {
+
+					if (!event.getButton().isEnabled()) {
+						return;
+					}
+
+					isTaken.setCaption(ALREADY_TAKEN_TXT);
+					isTaken.setEnabled(false);
+
+					// Update last Intake Date of Medication
+					EntityManager em = Persistence.createEntityManagerFactory("redapp").createEntityManager();
+					Medication clickedMedi = em.find(Medication.class, event.getButton().getData());
+
+					if (clickedMedi == null) {
+						return;
+					}
+					clickedMedi.setLastIntake(Calendar.getInstance());
+
+					em.getTransaction().begin();
+					em.persist(clickedMedi);
+					em.getTransaction().commit();
+				}
+			});
+
+			if (curMed.isTimeForNextIntakeNow()) {
+				isTaken.setCaption(NOW_TAKEN_TXT);
 			} else {
-				isTaken = new CheckBox("bereits geschluckt");
-				isTaken.setValue(true);
+				isTaken.setCaption(ALREADY_TAKEN_TXT);
 				isTaken.setEnabled(false);
 			}
 
@@ -89,16 +123,9 @@ public class MedicineMainView extends NavigationView implements ClickListener {
 
 			tableRow.add(isTaken);
 
-			mediEntriesTable.addItem(tableRow.toArray(), new Integer(j++));
+			mediEntriesTable.addItem(tableRow.toArray(), i++);
 		}
-
+		
 		setContent(mediEntriesTable);
-
-	}
-
-	@Override
-	public void buttonClick(ClickEvent event) {
-		// TODO Auto-generated method stub
-
 	}
 }
