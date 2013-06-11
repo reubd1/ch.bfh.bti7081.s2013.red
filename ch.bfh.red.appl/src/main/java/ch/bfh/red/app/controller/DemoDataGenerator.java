@@ -6,6 +6,8 @@ import java.util.Random;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
+import org.apache.bcel.generic.GETSTATIC;
+
 import ch.bfh.red.app.model.assignment.DiaryEntry;
 import ch.bfh.red.app.model.assignment.DiaryEntry.FeelingEnum;
 import ch.bfh.red.app.model.assignment.Event;
@@ -53,7 +55,7 @@ public class DemoDataGenerator {
 		
 		createEvent();
 
-//		createDiary();
+		createDiary();
 	}
 
 	private static void createPatient() {
@@ -90,7 +92,8 @@ public class DemoDataGenerator {
 		diary.setCreatedDate(createdDate);
 		diary.setFeeling(FeelingEnum.SCHLECHT);
 		diary.setEntry("testeintrag");
-
+		JPAContainer<Patient> pat = JPAContainerFactory.make(Patient.class, RedAppUI.PERSISTENCE_UNIT);
+		diary.setPatient(pat.getItem(pat.firstItemId()).getEntity());
 		em.getTransaction().begin();
 		em.persist(diary);
 		em.getTransaction().commit();

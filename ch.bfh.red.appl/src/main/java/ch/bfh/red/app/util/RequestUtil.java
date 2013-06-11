@@ -26,6 +26,11 @@ import com.google.gwt.http.client.URL;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
 
+/**
+ * Util Class to handle Requests to and from Skybiometry API
+ * 
+ * @author reubd1
+ */
 public class RequestUtil {
 
 	private static String API_KEY = "e5fc6bd4cd5a4772b707d382dde6d793";
@@ -39,6 +44,9 @@ public class RequestUtil {
 		void callback(String response);
 	}
 
+	/*
+	 * This method creates a HTTP Session by passing a defined URL
+	 */
 	private static void doRequest(String url) {
 
 		HttpClient client = new DefaultHttpClient();
@@ -59,17 +67,27 @@ public class RequestUtil {
 
 	}
 
+	/*
+	 *  Saves a specified face tag to permanent storage
+	 */
 	public static void save() {
 		doRequest("http://api.skybiometry.com/fc/tags/save.json?uid=" + UID
 				+ "@" + RedAppUI.FACELOGIN + "&tids=" + TIDS + API_AUTH);
 	}
 
+	/*
+	 * train a face of a given user
+	 */
 	public static void train(String userId) {
 		doRequest("http://api.skybiometry.com/fc/faces/train.json?uids=" + UID
 				+ "@" + RedAppUI.FACELOGIN + API_AUTH);
 
 	}
 
+	/*
+	 * Method is used for recognizing trained user ids in one or more photos. 
+	 *	For each detected face, method will return user ids that match specified face or empty result set if no matches found
+	 */
 	public static void recognize(File file) {
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(
@@ -120,12 +138,12 @@ public class RequestUtil {
 
 				}
 				System.out.println(user);
-				Notification notif = new Notification(user);
+				Notification notif = new Notification("Identifiziert als: "+user);
 				notif.show(Page.getCurrent());
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				// e.printStackTrace();
-				Notification notif2 = new Notification("Face mismatch");
+				Notification notif2 = new Notification("Gesicht wurde nicht erkannt");
 				notif2.show(Page.getCurrent());
 
 			}
@@ -153,6 +171,10 @@ public class RequestUtil {
 
 	}
 
+	/*
+	 * Returns tags for detected faces in one or more photos, with geometric information of the tag, 
+	 * eyes, nose and mouth, as well as additional attributes such as gender.
+	 */
 	public static void sendDetectRequest(File file) {
 
 		HttpClient client = new DefaultHttpClient();

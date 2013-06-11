@@ -2,17 +2,28 @@ package ch.bfh.red.app.view;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import ch.bfh.red.app.model.assignment.DiaryEntry;
 import ch.bfh.red.app.model.assignment.Medication;
-import ch.bfh.red.app.model.assignment.Event;
+import ch.bfh.red.app.util.GMap;
 
-
+import com.vaadin.addon.charts.Chart;
+import com.vaadin.addon.charts.model.ChartType;
+import com.vaadin.addon.charts.model.Configuration;
+import com.vaadin.addon.charts.model.ListSeries;
+import com.vaadin.addon.charts.model.XAxis;
+import com.vaadin.addon.charts.model.YAxis;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
+import com.vaadin.addon.timeline.Timeline;
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
+import com.vaadin.data.Container;
+import com.vaadin.data.Item;
+import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.data.util.filter.Compare;
 import com.vaadin.data.util.filter.Compare.GreaterOrEqual;
 import com.vaadin.ui.CssLayout;
@@ -81,13 +92,62 @@ public class OverviewView extends NavigationView {
 		componentGroup.addComponent(diaryLabel);
 		componentGroupMedi.addComponent(mediLabel);
 		componentGroupEvent.addComponent(eventLabel);
+		
 
+		final GMap map = new GMap();
+		componentGroupEvent.addComponent(map);
+
+		componentGroup.addComponent(drawFeelingChart(entryBean));
+		
 		content.addComponent(componentGroup);
 		content.addComponent(componentGroupMedi);
 		content.addComponent(componentGroupEvent);
 		
 		setContent(content);
          
+	}
+	
+	/*
+	 * Draw a Chart with Chart Addon for display the Feeling of all Diary Entries
+	 */
+	public Chart drawFeelingChart(JPAContainer<DiaryEntry> entryBean){
+		
+
+		Collection itemIds = entryBean.getItemIds();
+		
+		
+		Chart chart = new Chart(ChartType.LINE);
+		chart.setWidth("400px");
+		chart.setHeight("300px");
+		        
+		// Modify the default configuration a bit
+		Configuration conf = chart.getConfiguration();
+		conf.setTitle("Gefühlslage über alle Tage");
+		conf.getLegend().setEnabled(false); // Disable legend
+
+		// The data
+		ListSeries series = new ListSeries("Date");
+		
+		for (Object obj : itemIds){
+			series.addData(entryBean.getItem(obj).getEntity().getFeeling().getNumericValue());
+		}
+		
+		conf.addSeries(series);
+
+		// Set the category labels on the axis correspondingly
+		XAxis xaxis = new XAxis();
+		xaxis.setCategories("09.06.13", "10.06.13", "11.06.13");
+		xaxis.setTitle("Datum");
+		conf.addxAxis(xaxis);
+
+		// Set the Y axis title
+		YAxis yaxis = new YAxis();
+		yaxis.setTitle("Gefühl");
+		yaxis.setCategories("", "Schlecht", "", "Naja", "", "Super");
+		conf.addyAxis(yaxis);
+		
+		return chart;
+		
 	}
 	
 	/*
@@ -100,7 +160,6 @@ public class OverviewView extends NavigationView {
 		
 		diaryEntries = JPAContainerFactory.make(DiaryEntry.class, RedAppUI.PERSISTENCE_UNIT);
 
-		diaryEntries.addContainerFilter(filter);
 
 		return diaryEntries;
 
