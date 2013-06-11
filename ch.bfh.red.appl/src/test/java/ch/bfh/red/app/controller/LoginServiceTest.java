@@ -46,12 +46,12 @@ public class LoginServiceTest {
 	 * {@link ch.bfh.red.app.controller.LoginService#doLogin(com.vaadin.server.VaadinSession, java.lang.String, java.lang.String)}
 	 * .
 	 */
-	@Test
-	public void testDoLogin_NOK_null_values() {
-		LoginService loginService = LoginService.getInstance();
-
-		assertFalse("do login should return false, if it was not successful", loginService.doLogin(null, null, null));
-	}
+//	@Test
+//	public void testDoLogin_NOK_null_values() {
+//		LoginService loginService = LoginService.getInstance();
+//
+//		assertFalse("do login should return false, if it was not successful", loginService.doLogin(null, null, null));
+//	}
 
 	/**
 	 * Test method for
