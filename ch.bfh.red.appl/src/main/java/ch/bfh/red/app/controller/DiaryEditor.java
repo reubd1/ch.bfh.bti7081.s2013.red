@@ -123,7 +123,8 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 				// TODO use not only default patient
 				EntityManager em = Persistence.createEntityManagerFactory("redapp").createEntityManager();
 
-				newDiaryItem.getBean().setPatient(em.find(Patient.class, new Long(1)));
+				Patient curPat = LoginService.getInstance().getLoggedInUser(getSession());
+				newDiaryItem.getBean().setPatient(em.find(Patient.class, curPat.getId()));
 
 				diaryEntries.addEntity(newDiaryItem.getBean());
 
