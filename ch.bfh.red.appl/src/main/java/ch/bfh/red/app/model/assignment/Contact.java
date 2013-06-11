@@ -20,7 +20,7 @@ import ch.bfh.red.app.model.profile.Patient;
 @Entity
 public class Contact extends Assignment {
 
-	private String name;
+	String name;
 	
 	private String firstname;
 	
