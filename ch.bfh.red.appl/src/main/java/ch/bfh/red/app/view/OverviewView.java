@@ -155,10 +155,7 @@ public class OverviewView extends NavigationView {
 	 */
 	public JPAContainer<DiaryEntry> getDiaryEntry() {
 		
-		
-		JPAContainer<DiaryEntry> diaryEntries = new JPAContainer<DiaryEntry>(DiaryEntry.class);
-		
-		diaryEntries = JPAContainerFactory.make(DiaryEntry.class, RedAppUI.PERSISTENCE_UNIT);
+		JPAContainer<DiaryEntry> diaryEntries = JPAContainerFactory.make(DiaryEntry.class, RedAppUI.PERSISTENCE_UNIT);
 
 
 		return diaryEntries;
@@ -169,9 +166,8 @@ public class OverviewView extends NavigationView {
 	 * Method to get today's Medicine Entry
 	 */
 	public JPAContainer<Medication> getMedicineEntry() {
-		JPAContainer<Medication> medicationEntries = new JPAContainer<Medication>(Medication.class);
 		
-		medicationEntries = JPAContainerFactory.make(Medication.class, RedAppUI.PERSISTENCE_UNIT);
+		JPAContainer<Medication> medicationEntries = JPAContainerFactory.make(Medication.class, RedAppUI.PERSISTENCE_UNIT);
 		
 		medicationEntries.addContainerFilter(filter);
 
@@ -183,9 +179,8 @@ public class OverviewView extends NavigationView {
 	 * Method to get today's Event Entry
 	 */
 	public JPAContainer<ch.bfh.red.app.model.assignment.Event> getEventEntry() {
-		JPAContainer<ch.bfh.red.app.model.assignment.Event> eventEntries = new JPAContainer<ch.bfh.red.app.model.assignment.Event>(ch.bfh.red.app.model.assignment.Event.class);
 		
-		eventEntries = JPAContainerFactory.make(ch.bfh.red.app.model.assignment.Event.class, RedAppUI.PERSISTENCE_UNIT);
+		JPAContainer<ch.bfh.red.app.model.assignment.Event> eventEntries = JPAContainerFactory.make(ch.bfh.red.app.model.assignment.Event.class, RedAppUI.PERSISTENCE_UNIT);
 
 		eventEntries.addContainerFilter(filter);
 
