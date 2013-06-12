@@ -20,9 +20,15 @@ import ch.bfh.red.app.view.RedAppUI;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 
+/**
+ * pre-fill database with demo data
+ * 
+ * @author stola1
+ *
+ */
 public class DemoDataGenerator {
 
-	final static String[] medis = { "testRiatlin", "Morphium", "UML4ever", "Wundersalbe", "Smartis", "Placebo", "JavaChip" };
+	final static String[] medis = { "Riatlin", "Morphium", "UML4ever", "Wundersalbe", "Smartis", "Placebo", "JavaChip" };
 
 	final static String[] fnames = { "Erich", "Pierre", "Olivier", "Mario", "Jan", "Guido" };
 	final static String[] lnames = { "Badertscher", "Fierz", "Büchel", "Super", "Locher", "Bucher" };
@@ -30,6 +36,8 @@ public class DemoDataGenerator {
 
 	private static EntityManager em = null;
 
+	private static Patient  mario, dominik, george;
+	
 	public static void doInitializeIfDataIsMissing(){
 		JPAContainer<Patient> patients = JPAContainerFactory.make(Patient.class, RedAppUI.PERSISTENCE_UNIT);
 		
@@ -58,47 +66,109 @@ public class DemoDataGenerator {
 		createDiary();
 	}
 
+	//create all neccessary patients
 	private static void createPatient() {
 		em.getTransaction().begin();
-		Patient bluber = new Patient();
-		bluber.setFirstname("Bluberio");
-		bluber.setName("Bluber");
-		bluber.setLoginName("bluber");
-		bluber.setLoginPassword("bluber");
-		bluber.setCity(cities[0]);
-		bluber.setIndependenceLevel(2);
-		em.persist(bluber);
 		
-		Patient mario = new Patient();
+		mario = new Patient();
 		mario.setFirstname("Mario");
 		mario.setName("Super");
 		mario.setLoginName("mario");
 		mario.setLoginPassword("mario");
 		mario.setCity(cities[1]);
 		mario.setIndependenceLevel(4);
-
 		em.persist(mario);
+		
+		george = new Patient();
+		george.setFirstname("George");
+		george.setName("Clooney");
+		george.setLoginName("george");
+		george.setLoginPassword("george");
+		george.setCity(cities[1]);
+		george.setIndependenceLevel(1);
+		em.persist(george);
+		
+		dominik = new Patient();
+		dominik.setFirstname("Dominik");
+		dominik.setName("Reubi");
+		dominik.setLoginName("dominik");
+		dominik.setLoginPassword("dominik");
+		dominik.setCity(cities[1]);
+		dominik.setIndependenceLevel(2);
+		em.persist(dominik);
+
 		em.getTransaction().commit();
 	}
 	
+	//create some diaryEntries
 	private static void createDiary() {
-		DiaryEntry diary = new DiaryEntry();
 		
 		Calendar createdDate = Calendar.getInstance();
 		createdDate.set(Calendar.YEAR, 2013);
 		createdDate.set(Calendar.MONTH, 6);
 		createdDate.set(Calendar.DAY_OF_MONTH, 9);
 		
-		diary.setCreatedDate(createdDate);
+		DiaryEntry diary = new DiaryEntry();
+		diary.setCreatedDate(createdDate);	
 		diary.setFeeling(FeelingEnum.SCHLECHT);
-		diary.setEntry("testeintrag");
-		JPAContainer<Patient> pat = JPAContainerFactory.make(Patient.class, RedAppUI.PERSISTENCE_UNIT);
-		diary.setPatient(pat.getItem(pat.firstItemId()).getEntity());
+		diary.setEntry("nicht so toll, heute");
+		diary.setPatient(mario);
+		
 		em.getTransaction().begin();
 		em.persist(diary);
+		
+		diary = new DiaryEntry();
+		createdDate.set(Calendar.DAY_OF_MONTH, 10);
+		diary.setCreatedDate(createdDate);		
+		diary.setFeeling(FeelingEnum.NAJA);
+		diary.setEntry("Heute geht es mir schon besser");
+		diary.setPatient(mario);
+		em.persist(diary);
+		
+		diary = new DiaryEntry();
+		createdDate.set(Calendar.DAY_OF_MONTH, 11);		
+		diary.setCreatedDate(createdDate);		
+		diary.setFeeling(FeelingEnum.SUPER);
+		diary.setEntry("Endlich wieder schönes Wetter, TOP");
+		diary.setPatient(mario);
+		em.persist(diary);
+		
+		diary = new DiaryEntry();
+		createdDate.set(Calendar.DAY_OF_MONTH, 12);		
+		diary.setCreatedDate(createdDate);		
+		diary.setFeeling(FeelingEnum.SUPER);
+		diary.setEntry("Auch heute alles wieder wunderbar, TOP");
+		diary.setPatient(mario);
+		em.persist(diary);
+		
+		diary = new DiaryEntry();
+		createdDate.set(Calendar.DAY_OF_MONTH, 10);
+		diary.setCreatedDate(createdDate);		
+		diary.setFeeling(FeelingEnum.NAJA);
+		diary.setEntry("Heute geht es mir schon besser");
+		diary.setPatient(dominik);
+		em.persist(diary);
+		
+		diary = new DiaryEntry();
+		createdDate.set(Calendar.DAY_OF_MONTH, 11);		
+		diary.setCreatedDate(createdDate);		
+		diary.setFeeling(FeelingEnum.SUPER);
+		diary.setEntry("Endlich wieder schönes Wetter, TOP");
+		diary.setPatient(dominik);
+		em.persist(diary);
+		
+		diary = new DiaryEntry();
+		createdDate.set(Calendar.DAY_OF_MONTH, 12);		
+		diary.setCreatedDate(createdDate);		
+		diary.setFeeling(FeelingEnum.SUPER);
+		diary.setEntry("Auch heute alles wieder wunderbar, TOP");
+		diary.setPatient(dominik);
+		em.persist(diary);
+
 		em.getTransaction().commit();
 	}
 
+	//create all neccessary medicines
 	private static void createMedicine() {
 		em.getTransaction().begin();
 		for (String cM : medis) {
@@ -113,6 +183,7 @@ public class DemoDataGenerator {
 		em.getTransaction().commit();
 	}
 
+	//create some medications
 	private static void createMedicaiton() {
 		em.getTransaction().begin();
 
@@ -153,6 +224,8 @@ public class DemoDataGenerator {
 			
 			m.setStartDate(before);
 			m.setEndDate(after);
+			JPAContainer<Patient> pat = JPAContainerFactory.make(Patient.class, RedAppUI.PERSISTENCE_UNIT);
+			m.setPatient(pat.getItem(pat.firstItemId()).getEntity());		
 		
 
 			em.persist(m);
@@ -161,6 +234,7 @@ public class DemoDataGenerator {
 		em.getTransaction().commit();
 	}
 	
+	//create some events
 	private static void createEvent() {
 
 		Event ev = new Event();
@@ -186,6 +260,11 @@ public class DemoDataGenerator {
 			ev.setEndDate(after);
 			ev.setLocation("Bern");
 			ev.setName("Therapiesitzung mit Dr. X");
+			
+			
+			JPAContainer<Patient> pat = JPAContainerFactory.make(Patient.class, RedAppUI.PERSISTENCE_UNIT);
+			ev.setPatient(pat.getItem(pat.firstItemId()).getEntity());		
+
 			
 
 			em.getTransaction().begin();
