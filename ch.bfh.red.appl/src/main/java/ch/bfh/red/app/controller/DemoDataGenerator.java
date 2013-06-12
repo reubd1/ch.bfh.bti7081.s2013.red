@@ -144,10 +144,10 @@ public class DemoDataGenerator {
 			// load from DB
 			Medicine curMed = em.find(Medicine.class, id);
 			m.setMedicine(curMed);
-			m.setDosis(new Long(r.nextInt(100)));
+			m.setDosis(Long.valueOf(r.nextInt(100)));
 			m.setDosisUnit(DosisUnitEnum.miligramm);
 			m.setIntervalInHours(Long.valueOf(r.nextInt(3)));
-			m.setStock(new Long(r.nextInt(100)));
+			m.setStock(Long.valueOf(r.nextInt(100)));
 			
 			m.setStartDate(before);
 			m.setEndDate(after);
