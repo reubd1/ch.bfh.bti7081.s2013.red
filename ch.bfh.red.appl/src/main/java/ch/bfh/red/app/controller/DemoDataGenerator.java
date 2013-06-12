@@ -6,8 +6,6 @@ import java.util.Random;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
-import org.apache.bcel.generic.GETSTATIC;
-
 import ch.bfh.red.app.model.assignment.DiaryEntry;
 import ch.bfh.red.app.model.assignment.DiaryEntry.FeelingEnum;
 import ch.bfh.red.app.model.assignment.Event;
@@ -148,7 +146,7 @@ public class DemoDataGenerator {
 			m.setMedicine(curMed);
 			m.setDosis(new Long(r.nextInt(100)));
 			m.setDosisUnit(DosisUnitEnum.miligramm);
-			m.setIntervalInHours(new Long(r.nextInt(3)));
+			m.setIntervalInHours(Long.valueOf(r.nextInt(3)));
 			m.setStock(new Long(r.nextInt(100)));
 			
 			m.setStartDate(before);
