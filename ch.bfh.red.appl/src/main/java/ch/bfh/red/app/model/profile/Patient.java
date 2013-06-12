@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 
 import ch.bfh.red.app.model.assignment.DiaryEntry;
 import ch.bfh.red.app.model.assignment.Event;
+import ch.bfh.red.app.model.assignment.Medication;
 
 
 /**
@@ -37,6 +38,9 @@ public class Patient extends Person{
 
 	@OneToMany(mappedBy = "patient", cascade=CascadeType.ALL)
 	private Collection<DiaryEntry> diaryEntry;
+	
+	@OneToMany(mappedBy = "patient", cascade=CascadeType.ALL)
+	private Collection<Medication> medication;
 
     @ManyToMany(mappedBy = "patients",cascade=CascadeType.ALL)      
     private Collection<Event> contacts;
@@ -103,6 +107,14 @@ public class Patient extends Person{
 	 */
 	public void setLoginPassword(String loginPassword) {
 		this.loginPassword = loginPassword;
+	}
+
+	public Collection<Medication> getMedication() {
+		return medication;
+	}
+
+	public void setMedication(Collection<Medication> medication) {
+		this.medication = medication;
 	}
 
 }

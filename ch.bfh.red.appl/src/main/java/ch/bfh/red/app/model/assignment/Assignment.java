@@ -7,11 +7,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import ch.bfh.red.app.model.profile.Patient;
 
 /**
  * @author stola
@@ -33,6 +38,14 @@ public abstract class Assignment {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar lastModifiedDate;
+	
+//	@ManyToOne(optional = false)
+//	@JoinColumn(name = "FK_patient", referencedColumnName = "id")
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "patient_fk")
+	@NotNull
+	private Patient patient;
+
 
 	private Integer triggerIntervalInSec;
 
@@ -100,6 +113,14 @@ public abstract class Assignment {
 
 		this.lastModifiedDate = Calendar.getInstance();
 
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 
 }
