@@ -47,20 +47,4 @@ public class DiaryEntry extends Assignment {
 	public void setEntry(String entry) {
 		this.entry = entry;
 	}
-
-	 public Patient getPatient() {
-		return patient;
-	}
-
-	public void setPatient(Patient patient) {
-		this.patient = patient;
-	}
-
-//	@ManyToOne(optional = false)
-//	@JoinColumn(name = "FK_patient", referencedColumnName = "id")
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "patient_fk")
-	@NotNull
-	private Patient patient;
-
 }
