@@ -36,7 +36,7 @@ public class LoginService extends Application {
 
 	private static final String SES_LOGGED_IN_USER = "USR_LOGGED_IN_USR";
 
-	public static LoginService instance;
+	private static LoginService instance;
 
 	private JPAContainer<Patient> patientsJPA;
 
@@ -85,7 +85,7 @@ public class LoginService extends Application {
 		patientsJPA.addContainerFilter(usrFilter);
 		patientsJPA.applyFilters();
 
-		if (patientsJPA != null && patientsJPA.size() == 1) {
+		if (patientsJPA.size() == 1) {
 			EntityManager em = Persistence.createEntityManagerFactory("redapp").createEntityManager();
 			Patient loadedUser = em.find(Patient.class, patientsJPA.getItemIds());
 			System.out.println("USER found :-) ");
