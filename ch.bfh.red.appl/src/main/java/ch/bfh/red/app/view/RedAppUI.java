@@ -37,12 +37,13 @@ public class RedAppUI extends UI {
 		// Set the window or tab title
 		getPage().setTitle("Welcome RedApp");
 
-		NavigationManager navigationManager = new NavigationManager(new HomeScreenView());
-		setContent(navigationManager);
-		
 		NotificationChecker checker = NotificationChecker.getInstance();
 		checker.setMainPage(this);
 		checker.start();
+		
+		NavigationManager navigationManager = new NavigationManager(new HomeScreenView());
+		setContent(navigationManager);
+		
 
 	}
 }
