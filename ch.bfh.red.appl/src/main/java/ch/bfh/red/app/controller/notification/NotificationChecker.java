@@ -92,7 +92,6 @@ public class NotificationChecker {
 				timeOut();
 
 			}
-			timeOut();
 			run();
 		}
 
@@ -154,20 +153,21 @@ public class NotificationChecker {
 			medications.applyFilters();
 			
 
-			String medisToTake = "";
+			StringBuilder medisToTake = new StringBuilder();
 
 			for (Object oId : medications.getItemIds()) {
 				Medication medication = medications.getItem(oId).getEntity();
+				
 
 				if (medication.isTimeForNextIntakeNow()) {
 
-					medisToTake += MessageFormat.format("{0} {1} {2} <br>", medication.getDosis(), medication.getDosisUnit()
-							.getNumericValue(), medication.getMedicine().getName());
+					medisToTake.append(MessageFormat.format("{0} {1} {2} <br>", medication.getDosis(), medication.getDosisUnit()
+							.getNumericValue(), medication.getMedicine().getName()));
 
 				}
 			}
-			if (!medisToTake.isEmpty()) {
-				showMessage("Folgende Medikamente jetzt einnehmen: <br> " + medisToTake, Position.MIDDLE_CENTER);
+			if (!medisToTake.toString().isEmpty()) {
+				showMessage("Folgende Medikamente jetzt einnehmen: <br> " + medisToTake.toString(), Position.MIDDLE_CENTER);
 			}
 			medications.removeAllContainerFilters();
 		}
