@@ -27,6 +27,8 @@ public class DemoDataGenerator {
 	final static String cities[] = { "Bern", "Burgdorf", "Biel", "Neverland" };
 
 	private static EntityManager em = null;
+	
+	private static Patient bluber;
 
 	public static void doInitializeIfDataIsMissing(){
 		JPAContainer<Patient> patients = JPAContainerFactory.make(Patient.class, RedAppUI.PERSISTENCE_UNIT);
@@ -58,7 +60,7 @@ public class DemoDataGenerator {
 
 	private static void createPatient() {
 		em.getTransaction().begin();
-		Patient bluber = new Patient();
+		bluber = new Patient();
 		bluber.setFirstname("Bluberio");
 		bluber.setName("Bluber");
 		bluber.setLoginName("bluber");
@@ -151,6 +153,7 @@ public class DemoDataGenerator {
 			
 			m.setStartDate(before);
 			m.setEndDate(after);
+			m.setPatient(bluber);
 		
 
 			em.persist(m);
@@ -184,6 +187,7 @@ public class DemoDataGenerator {
 			ev.setEndDate(after);
 			ev.setLocation("Bern");
 			ev.setName("Therapiesitzung mit Dr. X");
+			ev.setPatient(bluber);
 			
 
 			em.getTransaction().begin();
