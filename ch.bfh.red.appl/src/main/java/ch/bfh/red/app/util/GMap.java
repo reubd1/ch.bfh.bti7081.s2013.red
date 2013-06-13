@@ -16,7 +16,7 @@ import com.vaadin.ui.JavaScriptFunction;
 
 @JavaScript({
 	         "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js",
-	         "gmap.js", "gmap-connector.js" })
+	         "GMap.js", "GMap-connector.js" })
 	 public class GMap extends AbstractJavaScriptComponent {
 	     
 	     public interface ValueChangeListener extends Serializable {
