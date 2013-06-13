@@ -6,8 +6,6 @@ import java.util.Random;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
-import org.apache.bcel.generic.GETSTATIC;
-
 import ch.bfh.red.app.model.assignment.DiaryEntry;
 import ch.bfh.red.app.model.assignment.DiaryEntry.FeelingEnum;
 import ch.bfh.red.app.model.assignment.Event;
@@ -35,6 +33,8 @@ public class DemoDataGenerator {
 	final static String cities[] = { "Bern", "Burgdorf", "Biel", "Neverland" };
 
 	private static EntityManager em = null;
+	
+	private static Patient bluber;
 
 	private static Patient  mario, dominik, george;
 	
@@ -217,10 +217,10 @@ public class DemoDataGenerator {
 			// load from DB
 			Medicine curMed = em.find(Medicine.class, id);
 			m.setMedicine(curMed);
-			m.setDosis(new Long(r.nextInt(100)));
+			m.setDosis(Long.valueOf(r.nextInt(100)));
 			m.setDosisUnit(DosisUnitEnum.miligramm);
-			m.setIntervalInHours(new Long(r.nextInt(3)));
-			m.setStock(new Long(r.nextInt(100)));
+			m.setIntervalInHours(Long.valueOf(r.nextInt(3)));
+			m.setStock(Long.valueOf(r.nextInt(100)));
 			
 			m.setStartDate(before);
 			m.setEndDate(after);
@@ -260,11 +260,8 @@ public class DemoDataGenerator {
 			ev.setEndDate(after);
 			ev.setLocation("Bern");
 			ev.setName("Therapiesitzung mit Dr. X");
+			ev.setPatient(bluber);
 			
-			
-			JPAContainer<Patient> pat = JPAContainerFactory.make(Patient.class, RedAppUI.PERSISTENCE_UNIT);
-			ev.setPatient(pat.getItem(pat.firstItemId()).getEntity());		
-
 			
 
 			em.getTransaction().begin();
