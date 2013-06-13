@@ -16,6 +16,7 @@ import ch.bfh.red.app.model.profile.Patient;
 /**
  * @author dimitri.haemmerli
  *
+ *			Entity Contact
  */
 @Entity
 public class Contact extends Assignment {

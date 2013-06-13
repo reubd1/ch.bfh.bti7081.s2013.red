@@ -9,6 +9,11 @@ import javax.validation.constraints.NotNull;
 
 import ch.bfh.red.app.model.profile.Patient;
 
+/**
+ * @author stola
+ * 
+ *         Entity DiaryEntry
+ */
 @Entity
 public class DiaryEntry extends Assignment {
 
@@ -47,5 +52,4 @@ public class DiaryEntry extends Assignment {
 	public void setEntry(String entry) {
 		this.entry = entry;
 	}
-
 }
