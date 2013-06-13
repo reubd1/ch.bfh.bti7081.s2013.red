@@ -1,11 +1,7 @@
 package ch.bfh.red.app.controller;
 
-/**
- * Edit form for new Diary entries
- * 
- * @author Team red
- */
 import java.io.Serializable;
+
 import java.lang.reflect.Method;
 
 import javax.persistence.EntityManager;
@@ -39,8 +35,17 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Upload;
 
+/**
+ * Edit form for new Diary entries
+ * 
+ * @author Team red
+ */
 public class DiaryEditor extends GeneralEditor implements ClickListener {
 
+	/**
+	 * generated UID
+	 */
+	private static final long serialVersionUID = 8030228930481465365L;
 	private Button cancel;
 	private Button submit;
 	private Button uploadBt;
@@ -118,6 +123,7 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 			@Override
 			public void editorSaved(EditorSavedEvent event) {
 				// get and set current DateTime
+				@SuppressWarnings("unchecked")
 				BeanItem<DiaryEntry> newDiaryItem = (BeanItem<DiaryEntry>) diaryItem;
 				// newDiaryItem.getBean().setDateTime(Calendar.getInstance());
 
@@ -223,6 +229,10 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 
 	public static class EditorSavedEvent extends Component.Event {
 
+		/**
+		 * generated UID
+		 */
+		private static final long serialVersionUID = -4439832556462844093L;
 		private Item savedItem;
 
 		public EditorSavedEvent(Component source, Item savedItem) {

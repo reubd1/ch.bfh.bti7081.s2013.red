@@ -36,12 +36,15 @@ public class LoginService extends Application {
 
 	private static final String SES_LOGGED_IN_USER = "USR_LOGGED_IN_USR";
 
+	/**
+	 * Singleton
+	 */
 	private static LoginService instance;
 
 	private JPAContainer<Patient> patientsJPA;
 
 	/**
-	 * Private constructor, please use getInstance go get the singleton instance
+	 * Singleton: Private constructor, please use getInstance go get the singleton instance
 	 */
 	private LoginService() {
 		patientsJPA = JPAContainerFactory.make(Patient.class, RedAppUI.PERSISTENCE_UNIT);
@@ -49,6 +52,7 @@ public class LoginService extends Application {
 
 	@Override
 	public void init() {
+		// load demo data
 		DemoDataGenerator.doInitializeIfDataIsMissing();
 	}
 

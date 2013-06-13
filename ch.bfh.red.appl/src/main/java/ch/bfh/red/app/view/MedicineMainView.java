@@ -71,6 +71,11 @@ public class MedicineMainView extends NavigationView {
 			isTaken.setData(oid);
 			isTaken.addClickListener(new ClickListener() {
 
+				/**
+				 * generated UID
+				 */
+				private static final long serialVersionUID = 2112755943607815182L;
+
 				@Override
 				public void buttonClick(ClickEvent event) {
 

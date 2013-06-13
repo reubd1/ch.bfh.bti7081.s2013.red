@@ -4,10 +4,11 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
+import ch.bfh.red.app.controller.LoginService;
 import ch.bfh.red.app.model.assignment.DiaryEntry;
 import ch.bfh.red.app.model.assignment.Medication;
+import ch.bfh.red.app.model.profile.Patient;
 import ch.bfh.red.app.util.GMap;
 
 import com.vaadin.addon.charts.Chart;
@@ -18,47 +19,64 @@ import com.vaadin.addon.charts.model.XAxis;
 import com.vaadin.addon.charts.model.YAxis;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
-import com.vaadin.addon.timeline.Timeline;
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
-import com.vaadin.data.Container;
-import com.vaadin.data.Item;
-import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.data.util.filter.Compare;
+import com.vaadin.data.util.filter.Compare.Equal;
 import com.vaadin.data.util.filter.Compare.GreaterOrEqual;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
+
 /**
  * Main View for today's Assignments
  * 
  * @author reubd1
  */
 public class OverviewView extends NavigationView {
-	
 
-	Calendar today;
-	Date todayDate;
-	GreaterOrEqual filter;
-	
+	/**
+	 * generated UID
+	 */
+	private static final long serialVersionUID = -830909913764677924L;
+	GreaterOrEqual filterTodayOrFuture;
+	Equal filterCurrentUser;
+
 	public void attach() {
 		super.attach();
 
 		buildView();
 	}
 
+	/**
+	 * Helper method to create JPA Filter
+	 */
+	private void initJPAFilters() {
+		// create a Filter for todays Assignments
+		java.sql.Timestamp t = new Timestamp(new Date().getTime());
+		filterTodayOrFuture = new Compare.GreaterOrEqual("createdDate", t);
+
+		Patient curUser = LoginService.getInstance().getLoggedInUser(getSession());
+		if (curUser != null && curUser.getId() != null) {
+			// set filter to JPA Object
+			filterCurrentUser = new Compare.Equal("patient", curUser);
+		} else {
+			// should never happen. However, do login ;-)
+			getNavigationManager().navigateTo(new RedLoginView());
+		}
+	}
+
 	private void buildView() {
-		
-		//get today's date
-		today = Calendar.getInstance();
+
+		// prepare JPA Filters
+		initJPAFilters();
+
+		// get today's date
+		Calendar today = Calendar.getInstance();
+
 		today.set(Calendar.AM_PM, Calendar.AM);
 		today.set(Calendar.HOUR, 0);
 		today.set(Calendar.MINUTE, 0);
-		todayDate = today.getTime();
-		
-		java.sql.Timestamp t = new Timestamp(todayDate.getTime());
-		//create a Filter for todays Assignments
-		filter = new Compare.GreaterOrEqual("createdDate", t);
-		
+
 		CssLayout content = new CssLayout();
 		content.setWidth("100%");
 
@@ -66,60 +84,54 @@ public class OverviewView extends NavigationView {
 		VerticalComponentGroup componentGroupMedi = new VerticalComponentGroup();
 		VerticalComponentGroup componentGroupEvent = new VerticalComponentGroup();
 		this.setCaption("Tagesübersicht");
-		
-		
-		//get today's assignments
+
+		// get today's assignments
 		JPAContainer<DiaryEntry> entryBean = getDiaryEntry();
 		JPAContainer<Medication> medicationEntryBean = getMedicineEntry();
 		JPAContainer<ch.bfh.red.app.model.assignment.Event> eventEntrytBean = getEventEntry();
-		
+
+		// prepare diary
 		DiaryEntry entry = entryBean.getItem(entryBean.firstItemId()).getEntity();
 		Medication medi = medicationEntryBean.getItem(medicationEntryBean.firstItemId()).getEntity();
 		ch.bfh.red.app.model.assignment.Event ev = eventEntrytBean.getItem(eventEntrytBean.firstItemId()).getEntity();
-        
-		Label diaryLabel = new Label(
-				"<div style='color:#333;'><p><b>Heutiger Tagebucheintrag:</b> "+entry.getEntry()+"</p> <br></div>",
-				Label.CONTENT_XHTML);	
-		
-		Label mediLabel = new Label( 
-				"<div style='color:#333;'><p><b>Medication: </b> <br> "+medi.getMedicine().getName()+" - "+medi.getDosis()+", "+medi.getDosisUnit()+"</p> </div>",
+
+		Label diaryLabel = new Label("<div style='color:#333;'><p><b>Heutiger Tagebucheintrag:</b> " + entry.getEntry()
+				+ "</p> <br></div>", Label.CONTENT_XHTML);
+
+		Label mediLabel = new Label("<div style='color:#333;'><p><b>Medication: </b> <br> " + medi.getMedicine().getName()
+				+ " - " + medi.getDosis() + ", " + medi.getDosisUnit() + "</p> </div>", Label.CONTENT_XHTML);
+
+		Label eventLabel = new Label("<div style='color:#333;'><p><b>Termin heute: </b> <br> " + ev.getName() + "</p> </div>",
 				Label.CONTENT_XHTML);
-		
-		Label eventLabel = new Label( 
-				"<div style='color:#333;'><p><b>Termin heute: </b> <br> "+ev.getName()+"</p> </div>",
-				Label.CONTENT_XHTML);
-		
+
 		componentGroup.addComponent(diaryLabel);
 		componentGroupMedi.addComponent(mediLabel);
 		componentGroupEvent.addComponent(eventLabel);
-		
 
 		final GMap map = new GMap();
 		componentGroupEvent.addComponent(map);
 
 		componentGroup.addComponent(drawFeelingChart(entryBean));
-		
+
 		content.addComponent(componentGroup);
 		content.addComponent(componentGroupMedi);
 		content.addComponent(componentGroupEvent);
-		
+
 		setContent(content);
-         
+
 	}
-	
+
 	/*
 	 * Draw a Chart with Chart Addon for display the Feeling of all Diary Entries
 	 */
-	public Chart drawFeelingChart(JPAContainer<DiaryEntry> entryBean){
-		
+	public Chart drawFeelingChart(JPAContainer<DiaryEntry> entryBean) {
 
-		Collection itemIds = entryBean.getItemIds();
-		
-		
+		Collection<Object> itemIds = entryBean.getItemIds();
+
 		Chart chart = new Chart(ChartType.LINE);
 		chart.setWidth("400px");
 		chart.setHeight("300px");
-		        
+
 		// Modify the default configuration a bit
 		Configuration conf = chart.getConfiguration();
 		conf.setTitle("Gefühlslage über alle Tage");
@@ -127,11 +139,11 @@ public class OverviewView extends NavigationView {
 
 		// The data
 		ListSeries series = new ListSeries("Date");
-		
-		for (Object obj : itemIds){
+
+		for (Object obj : itemIds) {
 			series.addData(entryBean.getItem(obj).getEntity().getFeeling().getNumericValue());
 		}
-		
+
 		conf.addSeries(series);
 
 		// Set the category labels on the axis correspondingly
@@ -145,44 +157,50 @@ public class OverviewView extends NavigationView {
 		yaxis.setTitle("Gefühl");
 		yaxis.setCategories("", "Schlecht", "", "Naja", "", "Super");
 		conf.addyAxis(yaxis);
-		
+
 		return chart;
-		
+
 	}
-	
+
 	/*
 	 * Method to get today's Diary Entry
 	 */
-	public JPAContainer<DiaryEntry> getDiaryEntry() {
-		
+	private JPAContainer<DiaryEntry> getDiaryEntry() {
+
 		JPAContainer<DiaryEntry> diaryEntries = JPAContainerFactory.make(DiaryEntry.class, RedAppUI.PERSISTENCE_UNIT);
 
+		// only get entries from current user!
+		diaryEntries.addContainerFilter(filterCurrentUser);
 
 		return diaryEntries;
 
 	}
-	
+
 	/*
 	 * Method to get today's Medicine Entry
 	 */
-	public JPAContainer<Medication> getMedicineEntry() {
-		
+	private JPAContainer<Medication> getMedicineEntry() {
+
 		JPAContainer<Medication> medicationEntries = JPAContainerFactory.make(Medication.class, RedAppUI.PERSISTENCE_UNIT);
-		
-		medicationEntries.addContainerFilter(filter);
+
+		// TODO only get data from current user
+		// medicationEntries.addContainerFilter(filterCurrentUser);
+		// medicationEntries.addContainerFilter(filterTodayOrFuture);
 
 		return medicationEntries;
 
 	}
-	
+
 	/*
 	 * Method to get today's Event Entry
 	 */
-	public JPAContainer<ch.bfh.red.app.model.assignment.Event> getEventEntry() {
-		
-		JPAContainer<ch.bfh.red.app.model.assignment.Event> eventEntries = JPAContainerFactory.make(ch.bfh.red.app.model.assignment.Event.class, RedAppUI.PERSISTENCE_UNIT);
+	private JPAContainer<ch.bfh.red.app.model.assignment.Event> getEventEntry() {
 
-		eventEntries.addContainerFilter(filter);
+		JPAContainer<ch.bfh.red.app.model.assignment.Event> eventEntries = JPAContainerFactory.make(
+				ch.bfh.red.app.model.assignment.Event.class, RedAppUI.PERSISTENCE_UNIT);
+
+		// TODO only get data from current user
+		// eventEntries.addContainerFilter(filterCurrentUser);
 
 		return eventEntries;
 
