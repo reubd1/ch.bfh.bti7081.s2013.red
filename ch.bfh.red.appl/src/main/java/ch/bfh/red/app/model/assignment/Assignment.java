@@ -49,10 +49,17 @@ public abstract class Assignment {
 
 	private Integer triggerIntervalInSec;
 
+	/**
+	 * @return the id
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id
+	 *            the id to set
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -115,10 +122,17 @@ public abstract class Assignment {
 
 	}
 
+	/**
+	 * @return the patient
+	 */
 	public Patient getPatient() {
 		return patient;
 	}
 
+	/**
+	 * @param patient
+	 *            the patient to set
+	 */
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
