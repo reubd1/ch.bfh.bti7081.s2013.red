@@ -45,8 +45,7 @@ public abstract class Assignment {
 	@JoinColumn(name = "patient_fk")
 	@NotNull
 	private Patient patient;
-
-
+	
 	private Integer triggerIntervalInSec;
 
 	/**

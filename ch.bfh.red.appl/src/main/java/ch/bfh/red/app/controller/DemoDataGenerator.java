@@ -69,6 +69,15 @@ public class DemoDataGenerator {
 	//create all neccessary patients
 	private static void createPatient() {
 		em.getTransaction().begin();
+
+		bluber = new Patient();
+		bluber.setFirstname("Bluberio");
+		bluber.setName("Bluber");
+		bluber.setLoginName("bluber");
+		bluber.setLoginPassword("bluber");
+		bluber.setCity(cities[0]);
+		bluber.setIndependenceLevel(2);
+		em.persist(bluber);
 		
 		mario = new Patient();
 		mario.setFirstname("Mario");
@@ -225,8 +234,8 @@ public class DemoDataGenerator {
 			m.setStartDate(before);
 			m.setEndDate(after);
 			JPAContainer<Patient> pat = JPAContainerFactory.make(Patient.class, RedAppUI.PERSISTENCE_UNIT);
+			
 			m.setPatient(pat.getItem(pat.firstItemId()).getEntity());		
-		
 
 			em.persist(m);
 		}
@@ -261,8 +270,6 @@ public class DemoDataGenerator {
 			ev.setLocation("Bern");
 			ev.setName("Therapiesitzung mit Dr. X");
 			ev.setPatient(bluber);
-			
-			
 
 			em.getTransaction().begin();
 			em.persist(ev);

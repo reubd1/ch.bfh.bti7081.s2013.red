@@ -65,7 +65,7 @@ public class DiarySummaryView extends NavigationView {
 
 		diaryEntriesTable.setSizeFull();
 
-		diaryEntriesTable.setVisibleColumns(new Object[] { "id", "entry", "feeling" });
+		diaryEntriesTable.setVisibleColumns(new Object[] {"entry", "feeling" });
 
 		Button addDiary = new Button();
 

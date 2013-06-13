@@ -8,13 +8,16 @@ package ch.bfh.red.app.controller.notification;
 import java.text.MessageFormat;
 import java.util.Calendar;
 
+import ch.bfh.red.app.controller.LoginService;
 import ch.bfh.red.app.model.assignment.DiaryEntry;
 import ch.bfh.red.app.model.assignment.Medication;
+import ch.bfh.red.app.model.profile.Patient;
 import ch.bfh.red.app.view.RedAppUI;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.data.util.filter.Compare;
+import com.vaadin.data.util.filter.Compare.Equal;
 import com.vaadin.data.util.filter.Compare.Greater;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Notification;
@@ -80,6 +83,7 @@ public class NotificationChecker {
 
 		@Override
 		public void run() {
+			timeOut();
 			while (active) {
 
 				checkDiary();
@@ -88,7 +92,6 @@ public class NotificationChecker {
 				timeOut();
 
 			}
-			timeOut();
 			run();
 		}
 
@@ -125,8 +128,14 @@ public class NotificationChecker {
 			today.set(Calendar.MILLISECOND, 0);
 
 			Greater todayFilter = new Compare.Greater("createdDate", today);
-
+			
 			diaryEntries.addContainerFilter(todayFilter);
+
+			
+			Patient currentUser = LoginService.getInstance().getLoggedInUser(mainPage.getSession());
+			Equal patientFilter = new Compare.Equal("patient", currentUser);
+			diaryEntries.addContainerFilter(patientFilter);
+
 			diaryEntries.applyFilters();
 
 			if (diaryEntries.size() < 1) {
@@ -137,22 +146,30 @@ public class NotificationChecker {
 		}
 
 		private void checkMedication() {
+			
+			Patient currentUser = LoginService.getInstance().getLoggedInUser(mainPage.getSession());
+			Equal patientFilter = new Compare.Equal("patient", currentUser);
+			medications.addContainerFilter(patientFilter);
+			medications.applyFilters();
+			
 
-			String medisToTake = "";
+			StringBuilder medisToTake = new StringBuilder();
 
 			for (Object oId : medications.getItemIds()) {
 				Medication medication = medications.getItem(oId).getEntity();
+				
 
 				if (medication.isTimeForNextIntakeNow()) {
 
-					medisToTake += MessageFormat.format("{0} {1} {2} <br>", medication.getDosis(), medication.getDosisUnit()
-							.getNumericValue(), medication.getMedicine().getName());
+					medisToTake.append(MessageFormat.format("{0} {1} {2} <br>", medication.getDosis(), medication.getDosisUnit()
+							.getNumericValue(), medication.getMedicine().getName()));
 
 				}
 			}
-			if (!medisToTake.isEmpty()) {
-				showMessage("Folgende Medikamente jetzt einnehmen: <br> " + medisToTake, Position.MIDDLE_CENTER);
+			if (!medisToTake.toString().isEmpty()) {
+				showMessage("Folgende Medikamente jetzt einnehmen: <br> " + medisToTake.toString(), Position.MIDDLE_CENTER);
 			}
+			medications.removeAllContainerFilters();
 		}
 
 	}
