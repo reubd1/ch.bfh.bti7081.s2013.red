@@ -3,6 +3,7 @@ package ch.bfh.red.app.view;
 import java.util.logging.Logger;
 
 import ch.bfh.red.app.controller.LoginService;
+import ch.bfh.red.app.model.profile.Patient;
 
 import com.vaadin.addon.touchkit.ui.NavigationButton;
 import com.vaadin.addon.touchkit.ui.NavigationView;
@@ -61,7 +62,7 @@ public class HomeScreenView extends NavigationView {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				loginService.doLogout(getSession());
-				
+
 				getNavigationManager().navigateTo(new RedLoginView());
 			}
 		});
@@ -69,18 +70,21 @@ public class HomeScreenView extends NavigationView {
 		getNavigationBar().setRightComponent(butCreate);
 
 		VerticalComponentGroup group = new VerticalComponentGroup();
-		
+
 		NavigationButton btnOverview = new NavigationButton("Übersicht", new OverviewView());
 		group.addComponents(btnOverview);
 
-		//TODO customize, depending on logged in user!
-		
-		NavigationButton btnDiary = new NavigationButton("Tagebuch", new DiarySummaryView());
-		group.addComponents(btnDiary);
+		// customize, depending on logged in user!
+		Patient curUser = loginService.getLoggedInUser(getSession());
+		if (curUser != null && curUser.getIndependenceLevel() >= 2) {
+			// TODO implement checks and profiles correctly in sprint 4+
+			NavigationButton btnDiary = new NavigationButton("Tagebuch", new DiarySummaryView());
+			group.addComponents(btnDiary);
+		}
 
 		NavigationButton btnMedi = new NavigationButton("Medikamente", new MedicineMainView());
 		group.addComponents(btnMedi);
-		
+
 		this.setContent(group);
 
 	}

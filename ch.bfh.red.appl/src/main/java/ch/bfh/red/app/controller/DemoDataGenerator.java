@@ -76,7 +76,7 @@ public class DemoDataGenerator {
 		bluber.setLoginName("bluber");
 		bluber.setLoginPassword("bluber");
 		bluber.setCity(cities[0]);
-		bluber.setIndependenceLevel(2);
+		bluber.setIndependenceLevel(1);
 		em.persist(bluber);
 		
 		mario = new Patient();
@@ -94,7 +94,7 @@ public class DemoDataGenerator {
 		george.setLoginName("george");
 		george.setLoginPassword("george");
 		george.setCity(cities[1]);
-		george.setIndependenceLevel(1);
+		george.setIndependenceLevel(3);
 		em.persist(george);
 		
 		dominik = new Patient();
