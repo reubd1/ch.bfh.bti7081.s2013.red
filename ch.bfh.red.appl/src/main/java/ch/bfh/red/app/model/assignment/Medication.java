@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 /**
  * @author TEAM RED
  * 
+ * 			Entity Medication
  */
 @Entity
 public class Medication extends AssignmentDataRange {
@@ -51,18 +52,32 @@ public class Medication extends AssignmentDataRange {
 	@NotNull
 	private Medicine medicine;
 
+	/**
+	 * @return the dosisUnit
+	 */
 	public DosisUnitEnum getDosisUnit() {
 		return dosisUnit;
 	}
 
+	/**
+	 * @param dosisUnit
+	 *            the dosisUnit to set
+	 */
 	public void setDosisUnit(DosisUnitEnum dosisUnit) {
 		this.dosisUnit = dosisUnit;
 	}
 
+	/**
+	 * @return the entry
+	 */
 	public String getEntry() {
 		return entry;
 	}
 
+	/**
+	 * @param entry
+	 *            the entry to set
+	 */
 	public void setEntry(String entry) {
 		this.entry = entry;
 	}
@@ -112,10 +127,17 @@ public class Medication extends AssignmentDataRange {
 		this.stock = stock;
 	}
 
+	/**
+	 * @return the medicine
+	 */
 	public Medicine getMedicine() {
 		return medicine;
 	}
 
+	/**
+	 * @param medicine
+	 *            the medicine to set
+	 */
 	public void setMedicine(Medicine medicine) {
 		this.medicine = medicine;
 	}
