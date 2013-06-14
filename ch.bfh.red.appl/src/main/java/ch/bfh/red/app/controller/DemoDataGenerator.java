@@ -174,6 +174,14 @@ public class DemoDataGenerator {
 		diary.setPatient(dominik);
 		em.persist(diary);
 
+		diary = new DiaryEntry();
+		createdDate.set(Calendar.DAY_OF_MONTH, 14);		
+		diary.setCreatedDate(createdDate);		
+		diary.setFeeling(FeelingEnum.SUPER);
+		diary.setEntry("Auch heute alles wieder wunderbar, TOP");
+		diary.setPatient(bluber);
+		em.persist(diary);
+		
 		em.getTransaction().commit();
 	}
 

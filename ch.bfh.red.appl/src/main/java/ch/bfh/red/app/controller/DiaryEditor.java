@@ -154,7 +154,7 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 			ogFeel.addItem(fe);
 		}
 
-		mainLayout.addComponent(ogFeel, "top:80.0px;left:80.0px;");
+		mainLayout.addComponent(ogFeel, "top:80.0px;left:30.0px;");
 
 		// taEntry
 		taEntry = new TextArea("Tagebucheintrag:");
@@ -168,7 +168,7 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 		taEntry.setInvalidAllowed(false);
 		taEntry.addValidator(new StringLengthValidator("Not long enough (min 10) or null", 10, 100, true));
 
-		mainLayout.addComponent(taEntry, "top:200.0px;left:80.0px;");
+		mainLayout.addComponent(taEntry, "top:200.0px;left:10.0px;");
 
 		// submit
 		// mainLayout.addComponent(submit, "top:480.0px;left:357.0px;");
@@ -181,7 +181,7 @@ public class DiaryEditor extends GeneralEditor implements ClickListener {
 		binder.bind(taEntry, "entry");
 		binder.bind(ogFeel, "feeling");
 
-		mainLayout.addComponent(uploadBt, "top:400.0px;left:80.0px;");
+		mainLayout.addComponent(uploadBt, "top:400.0px;left:30.0px;");
 
 		setContent(mainLayout);
 
