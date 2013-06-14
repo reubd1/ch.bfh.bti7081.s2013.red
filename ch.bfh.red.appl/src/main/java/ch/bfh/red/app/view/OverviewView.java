@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import ch.bfh.red.app.controller.LoginService;
 import ch.bfh.red.app.model.assignment.DiaryEntry;
@@ -52,7 +53,13 @@ public class OverviewView extends NavigationView {
 	 */
 	private void initJPAFilters() {
 		// create a Filter for todays Assignments
-		java.sql.Timestamp t = new Timestamp(new Date().getTime());
+		Calendar calEnd = new GregorianCalendar();
+		calEnd.setTime(new Date());
+		calEnd.set(Calendar.DAY_OF_YEAR, 0);
+		calEnd.set(Calendar.HOUR_OF_DAY, 0);
+		calEnd.set(Calendar.MINUTE, 0);
+		
+		java.sql.Timestamp t = new Timestamp(calEnd.getTime().getTime());
 		filterTodayOrFuture = new Compare.GreaterOrEqual("createdDate", t);
 
 		Patient curUser = LoginService.getInstance().getLoggedInUser(getSession());
@@ -91,27 +98,34 @@ public class OverviewView extends NavigationView {
 		JPAContainer<ch.bfh.red.app.model.assignment.Event> eventEntrytBean = getEventEntry();
 
 		// prepare diary
-		DiaryEntry entry = entryBean.getItem(entryBean.firstItemId()).getEntity();
+		if (entryBean.size() > 0) {
+			DiaryEntry entry = entryBean.getItem(entryBean.lastItemId()).getEntity();
+
+			Label diaryLabel = new Label("<div style='color:#333;'><p><b>Heutiger Tagebucheintrag:</b> " + entry.getEntry()
+					+ "</p> <br></div>", Label.CONTENT_XHTML);
+			componentGroup.addComponent(diaryLabel);
+		}
+
+		// prepare medi
 		Medication medi = medicationEntryBean.getItem(medicationEntryBean.firstItemId()).getEntity();
-		ch.bfh.red.app.model.assignment.Event ev = eventEntrytBean.getItem(eventEntrytBean.firstItemId()).getEntity();
-
-		Label diaryLabel = new Label("<div style='color:#333;'><p><b>Heutiger Tagebucheintrag:</b> " + entry.getEntry()
-				+ "</p> <br></div>", Label.CONTENT_XHTML);
-
 		Label mediLabel = new Label("<div style='color:#333;'><p><b>Medication: </b> <br> " + medi.getMedicine().getName()
 				+ " - " + medi.getDosis() + ", " + medi.getDosisUnit() + "</p> </div>", Label.CONTENT_XHTML);
 
+		// prepare Event
+		ch.bfh.red.app.model.assignment.Event ev = eventEntrytBean.getItem(eventEntrytBean.firstItemId()).getEntity();
 		Label eventLabel = new Label("<div style='color:#333;'><p><b>Termin heute: </b> <br> " + ev.getName() + "</p> </div>",
 				Label.CONTENT_XHTML);
 
-		componentGroup.addComponent(diaryLabel);
 		componentGroupMedi.addComponent(mediLabel);
 		componentGroupEvent.addComponent(eventLabel);
 
 		final GMap map = new GMap();
 		componentGroupEvent.addComponent(map);
 
-		componentGroup.addComponent(drawFeelingChart(entryBean));
+		JPAContainer<DiaryEntry> diariesOfUserJPA = getDiaryEntries();
+		if (diariesOfUserJPA.size() > 0) {
+			componentGroup.addComponent(drawFeelingChart(diariesOfUserJPA));
+		}
 
 		content.addComponent(componentGroup);
 		content.addComponent(componentGroupMedi);
@@ -148,7 +162,7 @@ public class OverviewView extends NavigationView {
 
 		// Set the category labels on the axis correspondingly
 		XAxis xaxis = new XAxis();
-		xaxis.setCategories("09.06.13", "10.06.13", "11.06.13");
+		xaxis.setCategories("09.06.13", "10.06.13", "11.06.13", "12.06.13", "14.06.13");
 		xaxis.setTitle("Datum");
 		conf.addxAxis(xaxis);
 
@@ -170,12 +184,26 @@ public class OverviewView extends NavigationView {
 		JPAContainer<DiaryEntry> diaryEntries = JPAContainerFactory.make(DiaryEntry.class, RedAppUI.PERSISTENCE_UNIT);
 
 		// only get entries from current user!
+		diaryEntries.addContainerFilter(filterTodayOrFuture);
 		diaryEntries.addContainerFilter(filterCurrentUser);
 
 		return diaryEntries;
 
 	}
 
+	/*
+	 * Method to get today's Diary Entry
+	 */
+	private JPAContainer<DiaryEntry> getDiaryEntries() {
+
+		JPAContainer<DiaryEntry> diaryEntries = JPAContainerFactory.make(DiaryEntry.class, RedAppUI.PERSISTENCE_UNIT);
+
+		// only get entries from current user!
+		diaryEntries.addContainerFilter(filterCurrentUser);
+
+		return diaryEntries;
+
+	}
 	/*
 	 * Method to get today's Medicine Entry
 	 */

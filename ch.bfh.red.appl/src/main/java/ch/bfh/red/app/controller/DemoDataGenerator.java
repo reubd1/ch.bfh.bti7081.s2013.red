@@ -36,7 +36,7 @@ public class DemoDataGenerator {
 	
 	private static Patient bluber;
 
-	private static Patient  mario, dominik, george;
+	private static Patient  lara, dominik, george;
 	
 	public static void doInitializeIfDataIsMissing(){
 		JPAContainer<Patient> patients = JPAContainerFactory.make(Patient.class, RedAppUI.PERSISTENCE_UNIT);
@@ -79,14 +79,14 @@ public class DemoDataGenerator {
 		bluber.setIndependenceLevel(1);
 		em.persist(bluber);
 		
-		mario = new Patient();
-		mario.setFirstname("Mario");
-		mario.setName("Super");
-		mario.setLoginName("mario");
-		mario.setLoginPassword("mario");
-		mario.setCity(cities[1]);
-		mario.setIndependenceLevel(4);
-		em.persist(mario);
+		lara = new Patient();
+		lara.setFirstname("Lara");
+		lara.setName("Croft");
+		lara.setLoginName("lara");
+		lara.setLoginPassword("lara");
+		lara.setCity(cities[1]);
+		lara.setIndependenceLevel(4);
+		em.persist(lara);
 		
 		george = new Patient();
 		george.setFirstname("George");
@@ -121,7 +121,7 @@ public class DemoDataGenerator {
 		diary.setCreatedDate(createdDate);	
 		diary.setFeeling(FeelingEnum.SCHLECHT);
 		diary.setEntry("nicht so toll, heute");
-		diary.setPatient(mario);
+		diary.setPatient(lara);
 		
 		em.getTransaction().begin();
 		em.persist(diary);
@@ -131,7 +131,7 @@ public class DemoDataGenerator {
 		diary.setCreatedDate(createdDate);		
 		diary.setFeeling(FeelingEnum.NAJA);
 		diary.setEntry("Heute geht es mir schon besser");
-		diary.setPatient(mario);
+		diary.setPatient(lara);
 		em.persist(diary);
 		
 		diary = new DiaryEntry();
@@ -139,7 +139,7 @@ public class DemoDataGenerator {
 		diary.setCreatedDate(createdDate);		
 		diary.setFeeling(FeelingEnum.SUPER);
 		diary.setEntry("Endlich wieder schönes Wetter, TOP");
-		diary.setPatient(mario);
+		diary.setPatient(lara);
 		em.persist(diary);
 		
 		diary = new DiaryEntry();
@@ -147,7 +147,7 @@ public class DemoDataGenerator {
 		diary.setCreatedDate(createdDate);		
 		diary.setFeeling(FeelingEnum.SUPER);
 		diary.setEntry("Auch heute alles wieder wunderbar, TOP");
-		diary.setPatient(mario);
+		diary.setPatient(lara);
 		em.persist(diary);
 		
 		diary = new DiaryEntry();
@@ -267,9 +267,9 @@ public class DemoDataGenerator {
 			ev.setCreatedDate(created);
 			ev.setStartDate(before);
 			ev.setEndDate(after);
-			ev.setLocation("Bern");
-			ev.setName("Therapiesitzung mit Dr. X");
-			ev.setPatient(bluber);
+			ev.setLocation("Outback, Australia");
+			ev.setName("Therapiesitzung mit Dr. X @Outback");
+			ev.setPatient(lara);
 
 			em.getTransaction().begin();
 			em.persist(ev);
