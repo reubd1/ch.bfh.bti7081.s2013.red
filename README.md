@@ -17,7 +17,6 @@ Dokumente:
 
 # How to run the Application
 - mvn package jetty:run
-- http://localhost:8080/ch.bfh.red.app
 - Required Software:
   - min. Jetty 8
   - Google Chrome (Vaadin TouchKit dosn't run well in other browsers)
