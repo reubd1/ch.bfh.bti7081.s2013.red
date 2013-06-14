@@ -15,6 +15,12 @@ Dokumente:
   - [CS1 TASKS] (https://github.com/reubd1/ch.bfh.bti7081.s2013.red/tree/master/ch.bfh.red.parent-doc/doc/cs1_tasks)
   - [CS2 TASKS] (https://github.com/reubd1/ch.bfh.bti7081.s2013.red/tree/master/ch.bfh.red.parent-doc/doc/cs2_tasks)
 
+# How to run the Application
+- mvn package jetty:run
+- Required Software:
+  - min. Jetty 8
+  - Google Chrome (Vaadin TouchKit dosn't run well in other browsers)
+
 ## VAADIN ein Buch mit 7ben Siegeln:
 
 - Vaadin Book: https://vaadin.com/book
