@@ -1,6 +1,7 @@
 package ch.bfh.red.app.view;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -29,7 +30,8 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 
 /**
- * Main View for today's Assignments
+ * Main View for today's Assignments<br><br>
+ * <b>HINT:</b> this is a prototype, needs refactoring!
  * 
  * @author reubd1
  */
@@ -93,16 +95,17 @@ public class OverviewView extends NavigationView {
 		this.setCaption("Tagesübersicht");
 
 		// get today's assignments
-		JPAContainer<DiaryEntry> entryBean = getDiaryEntry();
+		JPAContainer<DiaryEntry> entryBean = getDiaryEntries();
 		JPAContainer<Medication> medicationEntryBean = getMedicineEntry();
 		JPAContainer<ch.bfh.red.app.model.assignment.Event> eventEntrytBean = getEventEntry();
 
 		// prepare diary
 		if (entryBean.size() > 0) {
 			DiaryEntry entry = entryBean.getItem(entryBean.lastItemId()).getEntity();
-
-			Label diaryLabel = new Label("<div style='color:#333;'><p><b>Heutiger Tagebucheintrag:</b> " + entry.getEntry()
-					+ "</p> <br></div>", Label.CONTENT_XHTML);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+			
+			Label diaryLabel = new Label("<div style='color:#333;'><p><b>Letzer Tagebucheintrag:</b> " + entry.getEntry()
+					+ " <i>(" +sdf.format(entry.getCreatedDate().getTime())+")</i></p> <br></div>", Label.CONTENT_XHTML);
 			componentGroup.addComponent(diaryLabel);
 		}
 
@@ -179,26 +182,12 @@ public class OverviewView extends NavigationView {
 	/*
 	 * Method to get today's Diary Entry
 	 */
-	private JPAContainer<DiaryEntry> getDiaryEntry() {
-
-		JPAContainer<DiaryEntry> diaryEntries = JPAContainerFactory.make(DiaryEntry.class, RedAppUI.PERSISTENCE_UNIT);
-
-		// only get entries from current user!
-		diaryEntries.addContainerFilter(filterTodayOrFuture);
-		diaryEntries.addContainerFilter(filterCurrentUser);
-
-		return diaryEntries;
-
-	}
-
-	/*
-	 * Method to get today's Diary Entry
-	 */
 	private JPAContainer<DiaryEntry> getDiaryEntries() {
 
 		JPAContainer<DiaryEntry> diaryEntries = JPAContainerFactory.make(DiaryEntry.class, RedAppUI.PERSISTENCE_UNIT);
 
 		// only get entries from current user!
+		//diaryEntries.addContainerFilter(filterTodayOrFuture);
 		diaryEntries.addContainerFilter(filterCurrentUser);
 
 		return diaryEntries;
