@@ -51,7 +51,7 @@ public class RedLoginView extends NavigationView implements ClickListener {
 		user = new TextField("User:");
 		user.setWidth("300px");
 		user.setRequired(true);
-		user.setInputPrompt("Your username (eg. mario/mario)");
+		user.setInputPrompt("Your username (eg. lara/lara)");
 		// user.addValidator(new EmailValidator("Username must be an email address"));
 		user.setInvalidAllowed(false);
 

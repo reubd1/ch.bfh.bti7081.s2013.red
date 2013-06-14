@@ -57,8 +57,8 @@ public class MedicineMainView extends NavigationView {
 		mediEntriesTable.addContainerProperty("Name", String.class, null);
 		mediEntriesTable.addContainerProperty("Dosis", String.class, null);
 		mediEntriesTable.addContainerProperty("Lager", Long.class, null);
-		mediEntriesTable.addContainerProperty("Interval", Long.class, null);
 		mediEntriesTable.addContainerProperty("Eingenommen", Button.class, null);
+		mediEntriesTable.addContainerProperty("Interval", Long.class, null);
 
 		for (Object oid : medication.getItemIds()) {
 			Long id = (Long) oid;
@@ -93,11 +93,17 @@ public class MedicineMainView extends NavigationView {
 					if (clickedMedi == null) {
 						return;
 					}
+					// set take in to DB 
+					clickedMedi.setStock(clickedMedi.getStock() - 1L);
 					clickedMedi.setLastIntake(Calendar.getInstance());
 
 					em.getTransaction().begin();
 					em.persist(clickedMedi);
 					em.getTransaction().commit();
+
+					// TODO do table update, add listener https://vaadin.com/forum#!/thread/68419
+					medication.refresh();
+					mediEntriesTable.refreshRowCache();
 				}
 			});
 
@@ -112,14 +118,15 @@ public class MedicineMainView extends NavigationView {
 			ArrayList<Object> tableRow = new ArrayList<Object>();
 			tableRow.add(curMed.getMedicine().getName());
 			tableRow.add(curMed.getDosis() + " " + curMed.getDosisUnit());
-			tableRow.add(curMed.getIntervalInHours());
 			tableRow.add(curMed.getStock());
 
 			tableRow.add(isTaken);
+			
+			tableRow.add(curMed.getIntervalInHours());
 
 			mediEntriesTable.addItem(tableRow.toArray(), null);
 		}
-		
+
 		setContent(mediEntriesTable);
 	}
 }
