@@ -3,11 +3,6 @@ package ch.bfh.red.app.model.assignment;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-
-import ch.bfh.red.app.model.profile.Patient;
 
 /**
  * @author stola

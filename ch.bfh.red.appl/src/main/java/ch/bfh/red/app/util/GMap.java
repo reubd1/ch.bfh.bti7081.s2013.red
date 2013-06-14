@@ -13,46 +13,44 @@ import com.vaadin.ui.JavaScriptFunction;
  * @author reubd1
  */
 
+@JavaScript({ "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", "http://sarita-art.ch/red/GMap.js",
+		"http://sarita-art.ch/red/GMap-connector.js" })
+// TODO: Fix classpath problem and use GMap local!
+public class GMap extends AbstractJavaScriptComponent {
 
-@JavaScript({
-	         "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js",
-	         "http://sarita-art.ch/red/GMap.js", "http://sarita-art.ch/red/GMap-connector.js" })
-	 public class GMap extends AbstractJavaScriptComponent {
-	     
-	     public interface ValueChangeListener extends Serializable {
-	         void valueChange();
-	     }
-	    
-	    ArrayList<ValueChangeListener> listeners =
-	            new ArrayList<ValueChangeListener>();
-	    public void addListener(ValueChangeListener listener) {
-	        listeners.add(listener);
-	    }
-	    
-	    public void setValue(String value) {
-	        getState().setValue(value);
-	        markAsDirty();
-	    }
-	    
-	    public String getValue() {
-	        return getState().getValue();
-	    }
-	    
-	    @Override
-	    public GMapState getState() {
-	        return (GMapState) super.getState();
-	    }
-	    
-	    public GMap() {
-	        addFunction("onClick", new JavaScriptFunction() {
-				@Override
-				public void call(org.json.JSONArray arguments)
-						throws org.json.JSONException {
-					 getState().setValue(arguments.getString(0));
-		                for (ValueChangeListener listener: listeners)
-		                    listener.valueChange();
-					
-				}
-	        });
-	    }
+	public interface ValueChangeListener extends Serializable {
+		void valueChange();
 	}
+
+	ArrayList<ValueChangeListener> listeners = new ArrayList<ValueChangeListener>();
+
+	public void addListener(ValueChangeListener listener) {
+		listeners.add(listener);
+	}
+
+	public void setValue(String value) {
+		getState().setValue(value);
+		markAsDirty();
+	}
+
+	public String getValue() {
+		return getState().getValue();
+	}
+
+	@Override
+	public GMapState getState() {
+		return (GMapState) super.getState();
+	}
+
+	public GMap() {
+		addFunction("onClick", new JavaScriptFunction() {
+			@Override
+			public void call(org.json.JSONArray arguments) throws org.json.JSONException {
+				getState().setValue(arguments.getString(0));
+				for (ValueChangeListener listener : listeners)
+					listener.valueChange();
+
+			}
+		});
+	}
+}
